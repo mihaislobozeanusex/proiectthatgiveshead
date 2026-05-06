@@ -1,0 +1,1698 @@
+<html class="translated-ltr" lang="ro"><head>
+<meta charset="UTF-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SMF 3.0 — ADEVĂRATUL SMC</title>
+<!-- Fonts for Entry Logic section -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+
+/* â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+   GLOBAL / RESET
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� */
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg: #0a0c0f;
+  --surface: #111418;
+  --card: #161b22;
+  --bull: #00e676;
+  --bull-dim: rgba(0,230,118,0.12);
+  --bull-border: rgba(0,230,118,0.35);
+  --bear: #ff1744;
+  --bear-dim: rgba(255,23,68,0.12);
+  --bear-border: rgba(255,23,68,0.35);
+  --neutral: #546e7a;
+  --gold: #ffd54f;
+  --gold-dim: rgba(255,213,79,0.1);
+  --blue: #29b6f6;
+  --blue-dim: rgba(41,182,246,0.1);
+  --purple: #ce93d8;
+  --text: #cfd8dc;
+  --muted: #546e7a;
+  --line: #1e2730;
+}
+
+body{
+  font-family:'Syne',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+   HERO HEADER â€” THE REAL SMC
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� */
+.hero {
+  padding: 48px 40px 36px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  background: var(--bg);
+}
+.hero::before {
+  content:'';
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    radial-gradient(ellipse 70% 140% at 10% -20%, rgba(0,230,118,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 100% at 90% -10%, rgba(255,23,68,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 50% 120%, rgba(41,182,246,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-inner {max-width:1300px;margin:0 auto;position:relative;}
+
+.hero-eyebrow {
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  color:var(--bull);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  opacity:0.8;
+}
+
+.hero-title {
+  font-size:clamp(30px,5vw,58px);
+  font-weight:800;
+  letter-spacing:-2px;
+  line-height:1.0;
+  color:#fff;
+}
+.hero-title .accent{color:var(--bull);}
+.hero-title .dash{color:var(--muted);}
+
+.hero-sub {
+  margin-top:12px;
+  font-size:15px;
+  color:var(--muted);
+  max-width:600px;
+  line-height:1.6;
+}
+
+/* â”€â”€ BIG SMF 3.0 BUTTON â”€â”€ */
+.smf-btn-wrap {
+  margin-top:28px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.smf30-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 36px;
+  font-family:'Space Mono',monospace;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:3px;
+  color:#000;
+  background:linear-gradient(135deg,#00e676 0%,#00c853 40%,#69f0ae 100%);
+  border:none;
+  border-radius:6px;
+  cursor:default;
+  box-shadow:
+    0 0 0 2px rgba(0,230,118,0.5),
+    0 0 28px rgba(0,230,118,0.45),
+    0 4px 20px rgba(0,0,0,0.5);
+  animation: smfPulse 3s ease-in-out infinite;
+  text-transform:uppercase;
+  position:relative;
+  overflow:hidden;
+}
+.smf30-btn::before {
+  content:'';
+  position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);
+  animation:smfShine 3s ease-in-out infinite;
+}
+@keyframes smfPulse {
+  0%,100%{box-shadow:0 0 0 2px rgba(0,230,118,0.5),0 0 28px rgba(0,230,118,0.45),0 4px 20px rgba(0,0,0,0.5);}
+  50%{box-shadow:0 0 0 4px rgba(0,230,118,0.7),0 0 48px rgba(0,230,118,0.7),0 4px 24px rgba(0,0,0,0.6);}
+}
+@keyframes smfShine {
+  0%{left:-100%}60%,100%{left:150%}
+}
+.smf30-dot {
+  width:10px;height:10px;border-radius:50%;
+  background:#000;
+  box-shadow:0 0 6px rgba(0,0,0,0.5);
+  flex-shrink:0;
+}
+
+.hero-badges {
+  display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;
+}
+.hbadge {
+  font-family:'Space Mono',monospace;
+  font-size:10px;padding:4px 12px;border-radius:3px;letter-spacing:1px;
+}
+.hb-bull{background:var(--bull-dim);color:var(--bull);border:1px solid var(--bull-border);}
+.hb-bear{background:var(--bear-dim);color:var(--bear);border:1px solid var(--bear-border);}
+.hb-gold{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(255,213,79,0.3);}
+.hb-blue{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(41,182,246,0.3);}
+
+/* â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+   SECTION DIVIDERS
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� */
+.section-title {
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:4px;
+  color:var(--muted);
+  text-transform:uppercase;
+  padding:14px 40px;
+  background:var(--surface);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:var(--line);}
+.section-title .st-num{color:var(--bull);}
+
+/* â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+   ANIMATED SMC SECTION (file 1 styles)
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� */
+.smc-wrap{
+  padding:28px 40px 36px;
+  max-width:1300px;
+  margin:0 auto;
+}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{padding:7px 16px;border-radius:20px;border:1px solid #333;background:transparent;color:#888;cursor:pointer;font-size:12px;font-family:inherit;transition:all .15s}
+.tab.on{background:#378ADD;color:#fff;border-color:transparent;font-weight:600}
+.panel{display:none}
+.panel.on{display:block}
+canvas.smc-canvas{border-radius:8px;display:block;width:100%;max-width:760px;background:#141414}
+.ctrl{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.lbl{font-size:11px;font-weight:500;padding:2px 9px;border-radius:10px;display:inline-block}
+.lb-b{background:#1a2e10;color:#7bc142}
+.lb-s{background:#2e1010;color:#e06060}
+.lb-n{background:#0d1e30;color:#5ba3e0}
+.lb-w{background:#2e2010;color:#e0a030}
+.ctrl-btn{padding:5px 13px;border-radius:8px;border:1px solid #333;background:#1e1e1e;color:#ccc;cursor:pointer;font-size:12px;font-family:inherit}
+.ctrl-btn:hover{background:#2a2a2a}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@media(max-width:600px){.row2{grid-template-columns:1fr}.smc-wrap{padding:20px 16px}.hero{padding:32px 20px 28px}}
+.smc-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:12px 14px}
+.ct{font-size:13px;font-weight:500;margin:6px 0 4px;color:#ddd}
+.cs{font-size:12px;color:#888;line-height:1.5}
+.dot-row{display:flex;gap:7px;align-items:flex-start;margin-top:5px;font-size:12px;color:#888}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.dg{background:#639922}.dr{background:#E24B4A}.db{background:#378ADD}.dw{background:#EF9F27}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.step-info{font-size:12px;color:#888;margin-top:6px;min-height:40px;line-height:1.6;padding:8px;background:#1a1a1a;border-radius:8px;border:1px solid #2a2a2a}
+
+/* â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+   ENTRY LOGIC SECTION (file 2 styles)
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� */
+.entries-wrap {
+  max-width:1300px;
+  margin:0 auto;
+  padding:40px 40px 80px;
+}
+
+.section-label {
+  font-family:'Space Mono',monospace;
+  font-size:10px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;
+  margin:48px 0 20px;
+  display:flex;align-items:center;gap:16px;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--line);}
+
+.entry-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:20px;}
+
+.entry-card{
+  background:var(--card);border-radius:8px;overflow:hidden;
+  border:1px solid var(--line);transition:transform 0.2s,border-color 0.2s;position:relative;
+}
+.entry-card:hover{transform:translateY(-2px);}
+.entry-card.bull-card{border-color:var(--bull-border);}
+.entry-card.bull-card:hover{border-color:var(--bull);}
+.entry-card.bear-card{border-color:var(--bear-border);}
+.entry-card.bear-card:hover{border-color:var(--bear);}
+.entry-card.gold-card{border-color:rgba(255,213,79,0.3);}
+.entry-card.gold-card:hover{border-color:var(--gold);}
+.entry-card.blue-card{border-color:rgba(41,182,246,0.2);}
+.entry-card.blue-card:hover{border-color:var(--blue);}
+
+.card-header{
+  padding:14px 18px 12px;display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid var(--line);
+}
+.card-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.card-dot.bull{background:var(--bull);box-shadow:0 0 8px var(--bull);}
+.card-dot.bear{background:var(--bear);box-shadow:0 0 8px var(--bear);}
+.card-dot.gold{background:var(--gold);box-shadow:0 0 8px var(--gold);}
+.card-dot.blue{background:var(--blue);box-shadow:0 0 8px var(--blue);}
+.card-dot.purple{background:var(--purple);box-shadow:0 0 8px var(--purple);}
+.card-title{font-size:14px;font-weight:700;}
+.card-code{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-left:auto;}
+
+.canvas-wrap{padding:20px 18px;background:#0d1117;position:relative;min-height:180px;}
+canvas.entry-canvas{display:block;width:100%;}
+
+.cond-list{padding:14px 18px;display:flex;flex-direction:column;gap:7px;}
+.cond{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;}
+.cond-icon{width:16px;height:16px;border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;}
+.cond-icon.yes{background:rgba(0,230,118,0.2);color:var(--bull);}
+.cond-icon.no{background:rgba(255,23,68,0.2);color:var(--bear);}
+.cond-icon.info{background:rgba(41,182,246,0.2);color:var(--blue);}
+.cond-icon.warn{background:rgba(255,213,79,0.2);color:var(--gold);}
+.cond-text{color:var(--text);}
+.cond-text em{color:var(--muted);font-style:normal;display:block;font-size:10px;margin-top:1px;}
+
+.entry-card.wide{grid-column:1/-1;}
+.wide-canvas{padding:24px 20px;background:#0d1117;min-height:200px;}
+
+.entry-table{width:100%;border-collapse:collapse;font-size:12px;font-family:'Space Mono',monospace;}
+.entry-table th{padding:8px 14px;text-align:left;color:var(--muted);font-weight:400;font-size:10px;letter-spacing:1px;border-bottom:1px solid var(--line);}
+.entry-table td{padding:10px 14px;border-bottom:1px solid rgba(30,39,48,0.6);vertical-align:top;}
+.entry-table tr:last-child td{border-bottom:none;}
+.entry-table tr:hover td{background:rgba(255,255,255,0.02);}
+.tag-bull{color:var(--bull);}
+.tag-bear{color:var(--bear);}
+.tag-gold{color:var(--gold);}
+.tag-blue{color:var(--blue);}
+.tag-purple{color:var(--purple);}
+.tag-muted{color:var(--muted);}
+
+.flow{display:flex;align-items:center;gap:0;overflow-x:auto;padding:20px 18px;}
+.flow-step{
+  flex-shrink:0;background:#1a2030;border:1px solid var(--line);border-radius:6px;
+  padding:10px 14px;font-size:11px;text-align:center;min-width:110px;
+}
+.flow-step .step-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:4px;}
+.flow-step .step-name{font-weight:700;font-size:12px;}
+.flow-arr{width:24px;text-align:center;color:var(--muted);font-size:16px;flex-shrink:0;}
+
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px;}
+
+footer{
+  text-align:center;padding:32px;
+  font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);
+  border-top:1px solid var(--line);
+}
+</style>
+</head>
+<body>
+<!-- â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+     HERO HEADER
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� -->
+<div class="hero">
+<div class="hero-inner">
+<div class="hero-eyebrow">// Creat de Ion Pîrgari. Telegram:@I3ne3lu3</div>
+<h1 class="hero-title">SMF 3.0 <span class="dash">— </span> <span class="accent">ADEVĂRATUL SMC</span></h1>
+<p class="hero-sub">Referință vizuală completă pentru Smart Money Concepts — modele grafice animate, hărți logice de intrare și diagrame complete ale ciclului extrase din sursa live Pine Script v5.</p>
+<div class="smf-btn-wrap">
+<div class="smf30-btn">
+<span class="smf30-dot"></span>
+        SMF 3.0
+        <span class="smf30-dot"></span>
+</div>
+</div>
+<div class="hero-badges">
+<span class="hbadge hb-bull">INTRĂRI ASCENSOARE</span>
+<span class="hbadge hb-bear">INTRĂRI PEȘEDINTE</span>
+<span class="hbadge hb-gold">EVENIMENTE STRUCTURALE</span>
+<span class="hbadge hb-blue">INTRĂRI ÎN ZONĂ</span>
+</div>
+</div>
+</div>
+<!-- â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+     SECTION 1 â€” ANIMATED SMC VISUAL REFERENCE
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� -->
+<div class="section-title"><span class="st-num">01</span>Referință vizuală SMC animată</div>
+<div class="smc-wrap">
+<div class="tabs">
+<button class="tab on" onclick="sw(0,this)">Blocuri de comandă</button>
+<button class="tab" onclick="sw(1,this)">Lichiditate</button>
+<button class="tab" onclick="sw(2,this)">FVG</button>
+<button class="tab" onclick="sw(3,this)">BOS &amp; CHoCH</button>
+<button class="tab" onclick="sw(4,this)">Premium / Reducere</button>
+<button class="tab" onclick="sw(5,this)">Model de intrare completă</button>
+</div>
+<div class="panel on" id="p0">
+<canvas class="smc-canvas" height="260" id="c0" style="height: 260px;" width="720"></canvas>
+<div class="ctrl">
+<span class="lbl lb-b">OB optimist</span><span class="lbl lb-s">OB pesimist</span>
+<button class="ctrl-btn" onclick="replay(0)">▶ Reluare</button>
+</div>
+<div class="row2">
+<div class="smc-card">
+<span class="lbl lb-b">Bloc de ordine ascendent</span>
+<p class="ct">Ultima lumânare descendentă înainte de o mișcare ascendentă majoră</p>
+<p class="cs">Instituțiile au plasat ordine de cumpărare aici. Prețul crește rapid, revine la retestare, apoi crește.</p>
+<div class="dot-row"><div class="dot dg"></div>Ultima lumânare ROȘIE înainte de impulsul ascendent</div>
+<div class="dot-row"><div class="dot dg"></div>Corpul întreg al lumânării = zona OB</div>
+<div class="dot-row"><div class="dot dw"></div>Rupturi de preț sub corpul OB = atenuate (sărire peste)</div>
+</div>
+<div class="smc-card">
+<span class="lbl lb-s">Bloc de comenzi bearish</span>
+<p class="ct">Ultima lumânare ascendentă înainte de o mișcare descendentă puternică</p>
+<p class="cs">Instituțiile au plasat ordine de vânzare aici. Prețul scade, se retrage, apoi se inversează.</p>
+<div class="dot-row"><div class="dot dr"></div>Ultima lumânare VERDE înainte de impulsul bearish</div>
+<div class="dot-row"><div class="dot dr"></div>Corpul întreg al lumânării = zona OB</div>
+<div class="dot-row"><div class="dot dw"></div>Rupturi de preț peste corpul OB = atenuate (sărire peste)</div>
+</div>
+</div>
+</div>
+<div class="panel" id="p1">
+<canvas class="smc-canvas" id="c1"></canvas>
+<div class="ctrl">
+<span class="lbl lb-s">BSL (Britanică de semnătură)</span><span class="lbl lb-b">SSL</span>
+<button class="ctrl-btn" onclick="replay(1)">▶ Reluare</button>
+</div>
+<div class="row2">
+<div class="smc-card">
+<span class="lbl lb-s">Lichiditatea pe partea de cumpărare (BSL)</span>
+<p class="ct">Peste maxime egale / maxime oscilante</p>
+<p class="cs">Stop-loss-urile din retail se acumulează peste maxime. Instituțiile atacă aceste stop-loss-uri pentru a executa ordine de vânzare - prețul se inversează în jos.</p>
+<div class="dot-row"><div class="dot dr"></div>Maxime egale, maximul zilei precedente, numere rotunjite deasupra</div>
+<div class="dot-row"><div class="dot db"></div>Vârf deasupra → vânătoarea de opriri → inversare în jos</div>
+</div>
+<div class="smc-card">
+<span class="lbl lb-b">Lichiditatea pe partea de vânzare (SSL)</span>
+<p class="ct">Sub minime egale / minime oscilante</p>
+<p class="cs">Retail stop losses cluster below lows. Institutions raid these stops to fill buy orders â€” price reverses up.</p>
+<div class="dot-row"><div class="dot dg"></div>Equal lows, prev day low, round numbers below</div>
+<div class="dot-row"><div class="dot db"></div>Spike below â†’ stop hunt â†’ reversal up</div>
+</div>
+</div>
+</div>
+<div class="panel" id="p2">
+<canvas class="smc-canvas" id="c2"></canvas>
+<div class="ctrl">
+<span class="lbl lb-b">Bullish FVG</span><span class="lbl lb-s">Bearish FVG</span>
+<button class="ctrl-btn" onclick="replay(2)">▶ Replay</button>
+</div>
+<div class="row2">
+<div class="smc-card">
+<span class="lbl lb-b">Bullish FVG</span>
+<p class="ct">Gap between candle 1 high and candle 3 low</p>
+<p class="cs">Price moved so fast upward that an imbalance was left. Acts as support when retested.</p>
+<div class="dot-row"><div class="dot dg"></div>Candle 2 = the big impulse candle</div>
+<div class="dot-row"><div class="dot dg"></div>Best entry: 50â€“100% fill of the gap</div>
+</div>
+<div class="smc-card">
+<span class="lbl lb-s">Bearish FVG</span>
+<p class="ct">Gap between candle 1 low and candle 3 high</p>
+<p class="cs">Price moved so fast downward that an imbalance was left. Acts as resistance when retested.</p>
+<div class="dot-row"><div class="dot dr"></div>Candle 2 = the big bearish impulse candle</div>
+<div class="dot-row"><div class="dot dr"></div>Best entry: 50â€“100% fill of the gap</div>
+</div>
+</div>
+</div>
+<div class="panel" id="p3">
+<canvas class="smc-canvas" id="c3"></canvas>
+<div class="ctrl">
+<span class="lbl lb-n">CHoCH</span><span class="lbl lb-b">BOS</span>
+<button class="ctrl-btn" onclick="replay(3)">▶ Replay</button>
+</div>
+<div class="row2">
+<div class="smc-card">
+<span class="lbl lb-n">CHoCH â€” change of character</span>
+<p class="ct">First sign of a trend reversal</p>
+<p class="cs">In a downtrend: price breaks above the most recent swing high. Earliest warning signal â€” don't trade it alone.</p>
+<div class="dot-row"><div class="dot db"></div>Earliest warning â€” do NOT trade alone</div>
+<div class="dot-row"><div class="dot dw"></div>False CHoCH is possible â€” wait for BOS</div>
+</div>
+<div class="smc-card">
+<span class="lbl lb-b">BOS â€” break of structure</span>
+<p class="ct">Confirms the trend continues</p>
+<p class="cs">Price breaks the most recent swing point in the direction of the trend. Smart money pushing with intent.</p>
+<div class="dot-row"><div class="dot dg"></div>BOS up = bullish, confirms higher highs</div>
+<div class="dot-row"><div class="dot dr"></div>BOS down = bearish, confirms lower lows</div>
+</div>
+</div>
+</div>
+<div class="panel" id="p4">
+<canvas class="smc-canvas" id="c4"></canvas>
+<div class="ctrl">
+<span class="lbl lb-s">Premium â€” sell</span><span class="lbl lb-b">Discount â€” buy</span>
+<button class="ctrl-btn" onclick="replay(4)">▶ Replay</button>
+</div>
+<div class="row2">
+<div class="smc-card">
+<span class="lbl lb-s">Premium zone (75â€“100%)</span>
+<p class="ct">Price is "expensive" â€” institutions sell here</p>
+<p class="cs">Above the 50% equilibrium. Smart money distributes at premium. Look for bearish OB or FVG inside this zone.</p>
+<div class="dot-row"><div class="dot dr"></div>Only take sell setups in premium zone</div>
+</div>
+<div class="smc-card">
+<span class="lbl lb-b">Discount zone (0â€“50%)</span>
+<p class="ct">Price is "cheap" â€” institutions buy here</p>
+<p class="cs">Below the 50% equilibrium. Smart money accumulates at discount. Look for bullish OB or FVG inside this zone.</p>
+<div class="dot-row"><div class="dot dg"></div>Only take buy setups in discount zone</div>
+<div class="dot-row"><div class="dot dg"></div>Best: 62â€“79% retracement (golden pocket)</div>
+</div>
+</div>
+</div>
+<div class="panel" id="p5">
+<canvas class="smc-canvas" id="c5"></canvas>
+<div class="ctrl">
+<button class="ctrl-btn" onclick="stepModel(-1)">← Prev</button>
+<button class="ctrl-btn" onclick="stepModel(1)">Next →</button>
+<button class="ctrl-btn" onclick="replay(5)">▶ Restart</button>
+<span id="stepnum" style="font-size:12px;color:#666">Step 1 / 6</span>
+</div>
+<div class="step-info" id="stepinfo">HTF Bias: identify higher-timeframe structure. Is price bullish or bearish?</div>
+<div class="badge-row">
+<span class="lbl lb-b">1 HTF bias</span>
+<span class="lbl lb-n">2 Liquidity</span>
+<span class="lbl lb-b">3 Premium/discount</span>
+<span class="lbl lb-n">4 POI</span>
+<span class="lbl lb-b">5 LTF confirm</span>
+<span class="lbl lb-s">6 SL / TP</span>
+</div>
+</div>
+</div><!-- end smc-wrap -->
+<!-- â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+     SECTION 2 â€” ENTRY LOGIC VISUAL MAP
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� -->
+<div class="section-title"><span class="st-num">02</span>Hartă vizuală a logicii de intrare — Toate declanșatoarele din Pine Script v5</div>
+<div class="entries-wrap">
+<!-- 01 MARKET STRUCTURE -->
+<div class="section-label">01 — Intrări în structura pieței (CHoCH / BOS / IDM)</div>
+<div class="entry-grid">
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">CHoCH — Bullish (Schimbare de caracter)</div>
+<div class="card-code">LUNG</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="choch_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Preț în trend descendent (isCocDn = true)<em>Structura descendentă a fost confirmată</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">high &gt; lastH (depășește lovitura maximă anterioară)<em>Balaierea inducției</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">închidere &gt; lastH (lumânarea se închide deasupra)<em>Confirmare aproape - nu doar fitil</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">Declanșatoare: isCocUp=true, findIDM=true<em>Sistemul caută acum un nivel IDM sub</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">CHoCH — Pesimist (Schimbare de caracter)</div>
+<div class="card-code">SCURT</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="choch_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Preț în trend ascendent (isCocUp = true)<em>Structura ascendentă a fost confirmată</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">low &lt; lastL (depășește valoarea minimă anterioară)<em>Atragerea de lichiditate mai jos</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">închidere &lt; lastL (lumânarea se închide mai jos)<em>Confirmare închidere necesară</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">Declanșatoare: isCocDn=true, findIDM=true<em>Sistemul caută acum IDM sus</em></div></div>
+</div>
+</div>
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">BOS — Bullish (Rupere de structură)</div>
+<div class="card-code">CONTINUARE LUNGĂ</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="bos_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Deja în trend ascendent: isCocUp=true, nu findIDM<em>Continuarea etapei ascendente</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">maxim &gt; ultimulH și închidere &gt; ultimulH<em>Închidere completă cu lumânare peste maximul anterior</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Setează lastL = L (minimul anterior de retragere)<em>Aceasta definește HL-ul care tocmai a fost confirmat</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">isPrevBos=true — următorul CHoCH invalidează acest BOS<em>BOS apoi IDM = ciclu de confirmare a intrării</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">BOS — Bearish (Rupere de structură)</div>
+<div class="card-code">CONTINUARE SCURTĂ</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="bos_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Deja în trend descendent: isCocDn=true, nu findIDM<em>Continuarea etapei bearish</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">minim &lt; lastL și închidere &lt; lastL<em>Închidere completă a lumânării sub minimul anterior</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Setează lastH = H (rezistența anterioară maximă)<em>LH a fost confirmat la acel maxim</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">isPrevBos=true — BOS → ciclul IDM continuă<em>LH apoi IDM = zonă de intrare confirmată</em></div></div>
+</div>
+</div>
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">IDM — Bullish (Incentiv acceptat, Setup long)</div>
+<div class="card-code">DECLANAJ DE INTRARE</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="idm_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">findIDM=true ȘI isCocUp=true (post-CHoCH/BOS sus)<em>Se așteaptă ca minimul de retragere să fie măturat</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">low &lt; idmLow (depășește ținta IDM joasă)<em>idmLow = ultimul minim minor înainte de CHoCH</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Obiectiv de comandă sub nivelul IDM selectat ca OB de intrare<em>Cel mai apropiat OB etichetat primește eticheta IDM™OB</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">findIDM resetat la fals — ciclul de introducere finalizat<em>Departe de zona de cerere IDM™–OB</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">IDM — Pesimist (Incentiv acceptat, Setup Short)</div>
+<div class="card-code">DECLANAJ DE INTRARE</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="idm_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">findIDM=true ȘI isBosDn=true (post-CHoCH/BOS dn)<em>Se așteaptă ca maximul de retragere să fie măturat</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">high &gt; idmHigh (depășește ținta IDM high)<em>idmHigh = ultimul maxim minor înainte de CHoCH</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">OB de aprovizionare peste nivelul IDM selectat ca OB de intrare<em>Cel mai apropiat OB primește eticheta IDM™OB</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">findIDM resetat la fals — ciclul de introducere finalizat<em>Scurtcircuit față de zona de aprovizionare IDMâ–ªOB</em></div></div>
+</div>
+</div>
+</div>
+<!-- 02 ORDER BLOCK ENTRIES -->
+<div class="section-label">02 — Intrări în blocul de comenzi (EXT™ OB / IDM™ OB / Întrerupător / Atenuare)</div>
+<div class="entry-grid">
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">Cerere EXT™OB — Zonă de intrare lungă</div>
+<div class="card-code">ZONĂ LUNGĂ</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="extob_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Cerere OB: ultima lumânare bearish înainte de impulsul bullish<em>matricea demandZone stochează [top, bot, bar, type]</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Prețul revine ÎN zona de cerere (zona de cerere mică - cea de cerere maximă)<em>Zonă etichetată: demandZoneIsMit[i] = 1</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Etichetă EXT = zonă creată după extensia BOS/CHoCH<em>Zona cu cea mai mare cerere de confluență</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Atenuat = închidere &lt; botZone → zonă ștearsă<em>Nu reintrați niciodată într-un OB atenuat</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">EXT™OB Alimentare — Zonă de intrare scurtă</div>
+<div class="card-code">ZONĂ SCURT</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="extob_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Oferta OB: ultima lumânare bullish înainte de impulsul bearish<em>matricea supplyZone stochează [top, bot, bar, type]</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Prețul se întoarce ÎN zona de aprovizionare (botZone cu prețuri mari)<em>Zonă etichetată: supplyZoneIsMit[i] = 1</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Etichetă EXT = zonă de aprovizionare cu cea mai mare confluență<em>Creat pe baza extensiei bearish CHoCH sau BOS</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Atenuat = închidere &gt; topZone → zonă ștearsă<em>Ruptură peste ofertă = continuarea bullish</em></div></div>
+</div>
+</div>
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">Bloc de întrerupere — Valoare ascendentă (întoarcere eșuată a ofertei)</div>
+<div class="card-code">ÎNTRERUPĂTOR LUNG</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="breaker_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Prețul inițial al ofertei a fost depășit (prețul s-a închis peste acesta)<em>Vechea rezistență se întoarce la suport</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Prețul se retrage în zona de aprovizionare ruptă<em>OB-ul defect este acum un factor de blocare a cererii</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">Aceeași logică pesimistă: cererea ruptă devine un factor decisiv în ofertă<em>Instituțiile apără zonele inversate</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Cel mai puternic atunci când este combinat cu confluența BOS + FVG<em>Inversare cu probabilitate mare de la blocarea întrerupătorului</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">Bloc de atenuare — pesimist (revizuirea OB)</div>
+<div class="card-code">ATENUARE SCURTĂ</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="mitigation_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Prețul a creat o suprastructură a ofertei și a scăzut brusc<em>Instituțiile au lăsat comenzi neexecutate în OB</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Prețul crește din nou și atinge zona OB a ofertei<em>Atenuare: ordine executate la retragere</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Intrare short în partea de sus a zonei, SL peste OB, TP următor SSL<em>Model clasic de umplere instituțională</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Dacă prețul se închide complet peste OB = zona a eșuat/atenuată<em>Ieșiți imediat, nu vă opriți</em></div></div>
+</div>
+</div>
+</div>
+<!-- 03 SCOB -->
+<div class="section-label">03 — Intrări SCOB (Silver Bullet / Candle-Inside-OB)</div>
+<div class="entry-grid">
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">SCOB Bullish — Lumânare în interiorul zonei de cerere</div>
+<div class="card-code">SEMNAL DE CULOARE A BAREI</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="scob_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Nu este o bară interioară: isb[1] = false<em>Lumânarea anterioară trebuie să fie o bară independentă</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">low[1] &lt; low[2] ȘI low[1] &lt; low (lumânare locală minimă)<em>Lumânarea anterioară a atins cel mai scăzut nivel</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">închidere &gt; maxim[1] (închiderea curentă peste maximul anterior)<em>Confirmare copleșitoare în creștere</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">cerere în interiorul OB-ului (între topZone/botZone) [1] scăzută<em>Wick a accesat cu precizie OB-ul cererii</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">culoarea barei semnalizează galben — doar alertă vizuală<em>Lumânare 1 spate colorat scobUp (#e2d61d)</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">SCOB Bearish — Lumânare în Zona de Aprovizionare</div>
+<div class="card-code">SEMNAL DE CULOARE A BAREI</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="scob_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Nu este o bară interioară: isb[1] = false<em>Lumânarea anterioară trebuie să fie o bară independentă</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">high[1] &gt; high[2] ȘI high[1] &gt; high (lumânare locală maximă)<em>Lumânarea anterioară a atins cel mai înalt nivel</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">închidere &lt; minim[1] (închiderea curentă sub minimul anterior)<em>Confirmare copleșitoare a scăderii</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">înaltă[1] în interiorul OB-ului de alimentare (între topZone/botZone)<em>Alimentare cu filet OB</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">culoarea barei semnalizează portocaliu — doar alertă vizuală<em>Lumânare 1 spate colorat scobDn (#da781d)</em></div></div>
+</div>
+</div>
+</div>
+<!-- 04 CANDLE PATTERNS -->
+<div class="section-label">04 — Semnale cu model de lumânare (OSB / ISB)</div>
+<div class="entry-grid">
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">OSB Bullish — Outside Bar (Bull Close)</div>
+<div class="card-code">CULOAREA BAREI</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="osb_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">maxim &gt; vârf (maxim lumânare anterioară) ȘI minim &lt; vârf (minim lumânare anterioară)<em>osb = high &gt; arrTop[-1] ȘI low &lt; arrBot[-1]</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">închidere &gt; deschidere (corpul lumânării verde/bullish)<em>esteBaraVerde(0) = adevărat</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">culoarea barelor = colorOSB_up (#0b3ff9 albastru)<em>Semnal de volatilitate ridicată + tendință ascendentă</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">OSB Bearish — Bara exterioară (Închiderea pesimistă)</div>
+<div class="card-code">CULOAREA BAREI</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="osb_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">sus &gt; sus ȘI jos &lt; bot (bară exterioară completă)<em>Cuprinde întreaga gamă a lumânării anterioare</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">închidere &lt; deschidere (corpul lumânării roșu/bearish)<em>esteBaraVerde(0) = fals</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">culoarea barelor = colorOSB_down (#da781d portocaliu)<em>Volatilitate ridicată + semnal de închidere bearish</em></div></div>
+</div>
+</div>
+<div class="entry-card gold-card">
+<div class="card-header">
+<div class="card-dot gold"></div>
+<div class="card-title">ISB — Bară interioară (Consolidare / Compresie)</div>
+<div class="card-code">SEMNAL DE CONTEXT</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="isb" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">mamăÎnaltă &gt; înaltă ȘI mamăScăzută &lt; scăzută<em>Lumânarea curentă se află complet în intervalul barei mamă</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Lanțul ISB: reportarea motherHigh/Low la următoarea bară<em>Secvență interioară cu mai multe bare = compresie profundă</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">culoarea barelor = colorISB (violet #bb06f7)<em>Intrare la depășirea maximului/minimului barei mamă</em></div></div>
+</div>
+</div>
+</div>
+<!-- 05 LIQUIDITY -->
+<div class="section-label">05 — Intrări pentru obținerea de lichiditate BSL / SSL</div>
+<div class="entry-grid">
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">BSL — Atragerea de lichiditate de pe partea de cumpărare (Configurare scurtă)</div>
+<div class="card-code">LICHIDITATE EVACUATĂ</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="bsl" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Swing High format: high[N] &gt; toate barele din jur<em>Prag = prag_lichiditate_cumpărare_vânzare (implicit 5)</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Linie BSL trasată la înălțimea maximă a oscilației (eticheta BSL vizibilă)<em>Lichiditatea se menține peste maximele egale</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Invalidare: nivel BSL ridicat ≥ (lichiditate preluată)<em>Linia devine punctată — măturată la nivel</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Intrare: Scurt DUPĂ baleierea BSL, la OB-ul de alimentare de mai jos<em>Funcționarea banilor inteligenți se oprește, apoi se inversează.</em></div></div>
+</div>
+</div>
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">SSL — Atragerea de lichiditate de pe partea de vânzare (Configurare lungă)</div>
+<div class="card-code">LICHIDITATE EVACUATĂ</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="ssl" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Swing Low format: low[N] &lt; toate barele din jur<em>Prag = prag_lichiditate_cumpărare_vânzare (implicit 5)</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Linie SSL trasată la limita minimă (eticheta SSL vizibilă)<em>Ordinele stop se află sub minime egale</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Invalidare: nivel SSL scăzut ≤ (oprit efectuat)<em>Linia devine punctată — nivelul este eliberat</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Intrare: Mult timp după baleierea SSL, la cererea OB de mai sus<em>Acapararea de lichiditate – oportunitate de inversare a poziției lungi</em></div></div>
+</div>
+</div>
+</div>
+<!-- 06 FVG -->
+<div class="section-label">06 — Intrări privind diferența de valoare justă (FVG)</div>
+<div class="entry-grid">
+<div class="entry-card bull-card">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">FVG ascendent — Intrare lungă pe Gap Fill</div>
+<div class="card-code">FVG LUNG</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="fvg_bull" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">currentLow &gt; last2High (diferența dintre maximul lumânării 2 și minimul lumânării 0)<em>Model cu 3 lumânări: spațiul liber este zona corpului lumânării din mijloc</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">lastClose &gt; last2High (închiderea confirmă tendința ascendentă)<em>barDelta &gt; thresh — filtru automat de prag</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Filtru de volum: lastVolume &gt; avgVolume Ã— 1.2<em>useVolumeFilterInput = true în mod implicit</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Intrare: prețul se retrage ÎN caseta FVG (de jos în sus)<em>FVG șters când valoarea este scăzută &lt; valoarea inferioară a FVG (eșuat)</em></div></div>
+</div>
+</div>
+<div class="entry-card bear-card">
+<div class="card-header">
+<div class="card-dot bear"></div>
+<div class="card-title">FVG descendent — Intrare scurtă pentru umplerea decalajului</div>
+<div class="card-code">FVG SCURT</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="fvg_bear" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">currentHigh &lt; last2Low (diferența dintre minimul lumânării 2 și maximul lumânării 0)<em>Decalaj impulsiv bearish de 3 lumânări</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">lastClose &lt; last2Low (închiderea confirmă tendința descendentă)<em>-barDelta &gt; prag</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Filtru de volum: lastVolume &gt; avgVolume Ã— 1.2<em>Volum mare de FVG = dezechilibru instituțional</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Intrare: prețul crește ÎN CURSUL FVG (de sus în jos)<em>FVG șters când valoarea maximă este &gt; valoarea maximă a FVG (eșuat)</em></div></div>
+</div>
+</div>
+</div>
+<!-- 07 OTE / SWEEP / PDH -->
+<div class="section-label">07 — Zona OTE, Swing Sweep și Structura PDH/PDL</div>
+<div class="entry-grid">
+<div class="entry-card gold-card">
+<div class="card-header">
+<div class="card-dot gold"></div>
+<div class="card-title">Zona OTE — Intrare optimă în tranzacționare (0,61–0,78)</div>
+<div class="card-code">RETRAGERE FIBO</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="ote" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">Caseta OTE trasată între Fib 0,61 și 0,78 de oscilație<em>fibo_limit(0.78, lastH, lastL) până la fibo_limit(0.61, ...)</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">OTE ascendent: retragere în 61-78% din segmentul ascendent<em>Intrare în poziție long când prețul intră în caseta portocalie a OTE</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">OTE invalidată: bxty==1 și valoare mică &lt; josul casetei<em>Casetă ștersă – căutați următoarea structură</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">OTE descendent: retragere în 61-78% din segmentul descendent<em>Intrare short atunci când prețul intră în OTE de jos în jos</em></div></div>
+</div>
+</div>
+<div class="entry-card gold-card">
+<div class="card-header">
+<div class="card-dot gold"></div>
+<div class="card-title">Swing Sweep — Ruptură de structură eșuată</div>
+<div class="card-code">SEMNAL DE MĂTURARE</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="sweep" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">high &gt; lastH dar închiderea NU se închide peste lastH<em>Ruptură de fitil fără confirmare corporală</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">sweepHL(true) desenează o linie punctată la lastH<em>Linie gri de baleiaj de la ultima bară la bara curentă</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">La fel și pentru bearish: minim &lt; lastL, închidere peste lastL<em>Linie punctată de baleiaj la ultimul nivel L</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Sweep + OB dedesubt = Intrare scurtă cu confluență mare<em>Sweep + OB deasupra = Intrare lungă cu confluență mare</em></div></div>
+</div>
+</div>
+<div class="entry-card blue-card">
+<div class="card-header">
+<div class="card-dot blue"></div>
+<div class="card-title">PDH / PDL — Niveluri din ziua precedentă</div>
+<div class="card-code">NIVELURI CHEIE</div>
+</div>
+<div class="canvas-wrap"><canvas class="entry-canvas" height="160" id="pdhl" style="width: 678px; height: 160px;" width="678"></canvas></div>
+<div class="cond-list">
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">PDH = maxim[1] din apelul zilnic de securitate pentru intervalul de timp<em>cerere.security(tickerid, 'D', high[1])</em></div></div>
+<div class="cond"><div class="cond-icon yes">„</div><div class="cond-text">PDL = scăzut[1] din apelul de securitate zilnic pentru intervalul de timp<em>Linii extinse la dreapta cu bare lengPdh</em></div></div>
+<div class="cond"><div class="cond-icon warn">!</div><div class="cond-text">Intrare: PDH acționează ca rezistență (zonă scurtă)<em>PDL acționează ca suport (zonă lungă)</em></div></div>
+<div class="cond"><div class="cond-icon info">eu</div><div class="cond-text">Pauză + retestare PDH = continuare lungă<em>Pauză + retestare PDL = continuare scurtă</em></div></div>
+</div>
+</div>
+</div>
+<!-- 08 MTF DASHBOARD -->
+<div class="section-label">08 — Condiții semnal MTF pentru tabloul de bord PRO</div>
+<div class="entry-grid">
+<div class="entry-card wide blue-card">
+<div class="card-header">
+<div class="card-dot blue"></div>
+<div class="card-title">Tablou de bord cu intervale de timp multiple — Logică de semnal (5 luni / 15 luni / 1 oră / 4 ore / Zi)</div>
+<div class="card-code">CONFLUENȚA MTF</div>
+</div>
+<div style="padding:20px 18px;overflow-x:auto;">
+<table class="entry-table">
+<thead><tr><th>Semnal</th><th>Calitate</th><th>Condiție (per TF)</th><th>Scor</th><th>Prejudecăți comerciale</th></tr></thead>
+<tbody>
+<tr><td class="tag-bull">CUMPĂRĂ PROFESIONAL</td><td><span class="tag-bull">Pro</span></td><td class="tag-muted">EMA rapidă &gt; lentă (+2) + preț peste ambele EMA-uri (+1) + RSI &gt; 50 (+1) + model HH (+1) + ADX &gt; 20</td><td class="tag-bull">putere ≥ 80% + ADX puternic</td><td class="tag-bull">Puternic lung</td></tr>
+<tr><td class="tag-bull">CUMPĂRĂ STANDARD</td><td><span class="tag-blue">Standard</span></td><td class="tag-muted">Număr ascendent ≥ 3, intensitate 60–79%</td><td class="tag-blue">60–79%</td><td class="tag-bull">Lung</td></tr>
+<tr><td class="tag-gold">CUMPĂRĂ SLĂB</td><td><span class="tag-gold">Slab</span></td><td class="tag-muted">Numărul de tendințe ascendente este de ≥ 3, dar puterea este sub 60%</td><td class="tag-gold">&lt;60%</td><td class="tag-gold">Slab Lung</td></tr>
+<tr><td class="tag-bear">VÂNZĂ PROFESIONAL</td><td><span class="tag-bear">Pro</span></td><td class="tag-muted">EMA rapidă &lt; lentă + preț sub ambele EMA-uri + RSI &lt; 50 + model LL + ADX &gt; 20</td><td class="tag-bear">putere ≥ 80% + ADX puternic</td><td class="tag-bear">Scurt puternic</td></tr>
+<tr><td class="tag-bear">VÂNZARE STANDARD</td><td><span class="tag-blue">Standard</span></td><td class="tag-muted">Număr de tendințe negative ≥ 3, intensitate 60–79%</td><td class="tag-blue">60–79%</td><td class="tag-bear">Scurt</td></tr>
+<tr><td class="tag-gold">VINDEȚI SLAB</td><td><span class="tag-gold">Slab</span></td><td class="tag-muted">Numărul de tendințe negative este de ¥ 3, dar puterea este sub 60%</td><td class="tag-gold">&lt;60%</td><td class="tag-gold">Slab Scurt</td></tr>
+<tr><td class="tag-muted">NEUTRU</td><td><span class="tag-muted">—</span></td><td class="tag-muted">Numără &lt; 3 în ambele direcții</td><td class="tag-muted">—</td><td class="tag-muted">Fără schimburi comerciale</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- 09 FULL CYCLE -->
+<div class="section-label">09 — Flux complet al ciclului de intrare (CHoCH → BOS → IDM → OB)</div>
+<div class="entry-card wide bull-card" style="margin-top:0;">
+<div class="card-header">
+<div class="card-dot bull"></div>
+<div class="card-title">Ciclu complet — Logică de intrare pas cu pas (bullish și bearish)</div>
+</div>
+<div class="flow">
+<div class="flow-step"><div class="step-num">PASUL 1</div><div class="step-name" style="color:var(--bear)">isCocDn</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Tendință descendentă</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step"><div class="step-num">PASUL 2</div><div class="step-name" style="color:var(--bull)">CIOCOLATĂ</div><div style="font-size:10px;color:var(--muted);margin-top:4px">închide &gt; ultimaH</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step"><div class="step-num">PASUL 3</div><div class="step-name" style="color:var(--gold)">găsește IDM</div><div style="font-size:10px;color:var(--muted);margin-top:4px">IDM scăzut pentru vânătoare</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step"><div class="step-num">PASUL 4</div><div class="step-name" style="color:var(--bull)">BOS SUS</div><div style="font-size:10px;color:var(--muted);margin-top:4px">închide &gt; ultimaH</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step"><div class="step-num">PASUL 5</div><div class="step-name" style="color:var(--gold)">IDM Sweep</div><div style="font-size:10px;color:var(--muted);margin-top:4px">scăzut &lt; idmLow</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step"><div class="step-num">PASUL 6</div><div class="step-name" style="color:var(--bull)">IDM™OB</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Etichetat la cerere OB</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step"><div class="step-num">INTRARE</div><div class="step-name" style="color:var(--bull)">LONG</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Prețul revine la OB</div></div>
+</div>
+<div class="flow" style="border-top:1px solid var(--line);">
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">PASUL 1</div><div class="step-name" style="color:var(--bull)">esteCocUp</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Tendință ascendentă</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">PASUL 2</div><div class="step-name" style="color:var(--bear)">RED DN</div><div style="font-size:10px;color:var(--muted);margin-top:4px">închide &lt; lastL</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">PASUL 3</div><div class="step-name" style="color:var(--gold)">găsește IDM</div><div style="font-size:10px;color:var(--muted);margin-top:4px">IDM Hunt ridicat</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">PASUL 4</div><div class="step-name" style="color:var(--bear)">ȘEF DN</div><div style="font-size:10px;color:var(--muted);margin-top:4px">închide &lt; lastL</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">PASUL 5</div><div class="step-name" style="color:var(--gold)">IDM Sweep</div><div style="font-size:10px;color:var(--muted);margin-top:4px">înalt &gt; idmÎnalt</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">PASUL 6</div><div class="step-name" style="color:var(--bear)">IDM™OB</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Furnizare OB etichetată</div></div>
+<div class="flow-arr">o†'</div>
+<div class="flow-step" style="border-color:var(--bear-border)"><div class="step-num">INTRARE</div><div class="step-name" style="color:var(--bear)">SCURT</div><div style="font-size:10px;color:var(--muted);margin-top:4px">Prețul revine la OB</div></div>
+</div>
+</div>
+<!-- 10 ALERTS -->
+<div class="section-label">10 — Rezumatul condițiilor de alertă</div>
+<div class="entry-card wide" style="margin-top:0;border-color:rgba(41,182,246,0.3);">
+<div class="card-header">
+<div class="card-dot blue"></div>
+<div class="card-title">Toate declanșatoarele de alertă script</div>
+</div>
+<div style="padding:16px 18px;">
+<table class="entry-table">
+<thead><tr><th>Nume alertă</th><th>Condiție declanșatoare</th><th>Tip de intrare</th></tr></thead>
+<tbody>
+<tr><td class="tag-bear">IDM EXT Alert Supply</td><td class="tag-muted">isAlertextidmSell — zonă de aprovizionare IDM™OB etichetată</td><td class="tag-bear">SCURT de la alimentarea IDM™OB</td></tr>
+<tr><td class="tag-bull">Cerere de alertă IDM EXT</td><td class="tag-muted">isAlertextidmBuy — zonă de cerere IDM™OB etichetată</td><td class="tag-bull">LONG de la cererea IDM™OB</td></tr>
+<tr><td class="tag-bull">Nivelul de lichiditate al cumpărătorului</td><td class="tag-muted">alerts.bsl — o nouă valoare ridicată a variației BSL detectată (încă neinvalidată)</td><td class="tag-bear">SCURTĂ configurare care se formează mai sus</td></tr>
+<tr><td class="tag-bear">Nivelul de lichiditate al vânzărilor</td><td class="tag-muted">alerts.ssl — noua valoare SSL swing scăzută detectată (neinvalidată încă)</td><td class="tag-bull">Configurație LONGĂ care se formează mai jos</td></tr>
+<tr><td class="tag-bull">MSS ascendent</td><td class="tag-muted">TF_Preț_Mai_La_Închidere &gt; TF_Prev_Mai_La_Prev ȘI Prev_Breakout_Type == -1</td><td class="tag-bull">LUNG — schimbarea structurii pieței</td></tr>
+<tr><td class="tag-bear">MSS descendent</td><td class="tag-muted">TF_Low_Close_Price &lt; TF_Prev_Low ȘI Prev_Breakout_Type == 1</td><td class="tag-bear">SCURT — schimbarea structurii pieței</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><!-- end entries-wrap -->
+<footer>SMF 3.0 — ADEVĂRATUL SMC · Cadru Smart Money · Pine Script v5 · @aura_z9</footer>
+<!-- â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+     SCRIPT 1 â€” ANIMATED SMC (from smc_animated.html)
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� -->
+<script>
+const W=720,GRID='rgba(255,255,255,0.05)';
+const GREEN='#639922',GREEN_L='rgba(100,180,40,0.18)';
+const RED='#E24B4A',RED_L='rgba(220,60,60,0.18)';
+const BLUE='#378ADD',AMBER='#EF9F27';
+const GRAY='rgba(180,180,180,0.3)';
+const TXT='rgba(220,220,220,0.9)',TXTS='rgba(180,180,180,0.55)';
+const BG='#141414';
+
+let timers=[];
+function ct(){timers.forEach(clearTimeout);timers=[];}
+function later(fn,ms){timers.push(setTimeout(fn,ms));}
+
+function setup(id){
+  const c=document.getElementById('c'+id);
+  const H=id===5?300:260;
+  const dpr=window.devicePixelRatio||1;
+  c.width=W*dpr; c.height=H*dpr;
+  c.style.height=(H)+'px';
+  const ctx=c.getContext('2d');
+  ctx.scale(dpr,dpr);
+  ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
+  return {ctx,W,H};
+}
+function grid(ctx,W,H){
+  ctx.strokeStyle=GRID;ctx.lineWidth=0.5;
+  for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+}
+function candle(ctx,x,o,h,l,c2,bull,w){
+  w=w||14;const col=bull?GREEN:RED;
+  ctx.strokeStyle=col;ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(x,h);ctx.lineTo(x,Math.min(o,c2));ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x,Math.max(o,c2));ctx.lineTo(x,l);ctx.stroke();
+  ctx.fillStyle=col;ctx.fillRect(x-w/2,Math.min(o,c2),w,Math.abs(o-c2));
+  ctx.strokeStyle=col;ctx.strokeRect(x-w/2,Math.min(o,c2),w,Math.abs(o-c2));
+}
+function animLine(ctx,pts,col,lw,dur,dotted,cb){
+  const steps=80,total=pts.length-1;let s=0;
+  function frame(){
+    if(s>=total*steps){if(cb)cb();return;}
+    const seg=Math.floor(s/steps),t=(s%steps)/steps;
+    const x1=pts[seg][0],y1=pts[seg][1],x2=pts[seg+1][0],y2=pts[seg+1][1];
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x1+(x2-x1)*t,y1+(y2-y1)*t);
+    ctx.strokeStyle=col;ctx.lineWidth=lw||1.5;
+    dotted?ctx.setLineDash([5,4]):ctx.setLineDash([]);
+    ctx.stroke();ctx.setLineDash([]);s++;
+    later(frame,dur/(total*steps));
+  }
+  frame();
+}
+function zone(ctx,x1,y1,x2,y2,fill,stroke){
+  ctx.fillStyle=fill;ctx.fillRect(x1,y1,x2-x1,y2-y1);
+  ctx.strokeStyle=stroke;ctx.lineWidth=0.7;ctx.strokeRect(x1,y1,x2-x1,y2-y1);
+}
+function hline(ctx,y,x1,x2,col,dash){
+  ctx.beginPath();if(dash)ctx.setLineDash(dash);
+  ctx.moveTo(x1,y);ctx.lineTo(x2,y);
+  ctx.strokeStyle=col;ctx.lineWidth=0.8;ctx.stroke();ctx.setLineDash([]);
+}
+function arrow(ctx,x1,y1,x2,y2,col){
+  const a=Math.atan2(y2-y1,x2-x1),hs=8;
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);
+  ctx.strokeStyle=col;ctx.lineWidth=1.5;ctx.setLineDash([]);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-hs*Math.cos(a-0.4),y2-hs*Math.sin(a-0.4));
+  ctx.lineTo(x2-hs*Math.cos(a+0.4),y2-hs*Math.sin(a+0.4));
+  ctx.closePath();ctx.fillStyle=col;ctx.fill();
+}
+function txt(ctx,text,x,y,col,sz,align,w){
+  ctx.fillStyle=col||TXT;
+  ctx.font=(w||'400')+' '+(sz||12)+'px system-ui,sans-serif';
+  ctx.textAlign=align||'left';ctx.fillText(text,x,y);
+}
+function pulseDot(ctx,x,y,col,cb){
+  let r=2,maxr=11,op=1,growing=true,frames=0;
+  const hexToRgba=(h,a)=>{const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);return `rgba(${r},${g},${b},${a})`;};
+  function f(){
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=hexToRgba(col,op);ctx.fill();
+    if(growing){r+=0.6;if(r>=maxr)growing=false;}else{op-=0.08;r+=0.3;}
+    frames++;
+    if(op>0&&frames<70)later(f,16);else if(cb)cb();
+  }
+  f();
+}
+function drawOBPanel(){
+  ct();const {ctx,W,H}=setup(0);grid(ctx,W,H);
+  [[50,140,130,165,155,false],[80,155,145,168,148,false],[110,148,138,162,145,false],[140,145,118,152,120,true]]
+    .forEach(([x,o,c2,l,h,b])=>candle(ctx,x,o,h,l,c2,b));
+  zone(ctx,125,118,165,145,GREEN_L,GREEN);
+  txt(ctx,'Bullish OB',135,133,GREEN+'cc',10,'left','500');
+  const up=[[155,118],[195,98],[240,76],[285,55],[325,68],[365,42]];
+  later(()=>animLine(ctx,up,GREEN,2,900,false,()=>{
+    const rt=[[365,42],[378,58],[393,85],[407,108],[418,130]];
+    later(()=>animLine(ctx,rt,GRAY,1.2,600,true,()=>{
+      later(()=>{
+        zone(ctx,125,118,165,145,GREEN_L,GREEN);
+        arrow(ctx,418,130,167,133,GREEN);
+        txt(ctx,'Retest OB',330,150,GREEN,11,'left','500');
+        const bounce=[[418,130],[445,108],[472,80],[500,52],[528,36]];
+        animLine(ctx,bounce,GREEN,2.5,700,false,()=>txt(ctx,'Bounce up',445,30,GREEN,11,'left','500'));
+      },200);
+    }),200);
+  }),200);
+  [[490,80,90,68,100,true],[520,90,98,78,108,true],[550,100,88,75,106,true],[578,88,115,72,120,false]]
+    .forEach(([x,o,c2,l,h,b])=>candle(ctx,x,o,h,l,c2,b,12));
+  zone(ctx,562,72,602,88,RED_L,RED);
+  txt(ctx,'Bearish OB',564,83,RED+'cc',10,'left','500');
+  const down=[[590,72],[606,92],[624,118],[638,145],[650,170]];
+  later(()=>animLine(ctx,down,RED,2,900,false,()=>{
+    const rt2=[[650,170],[645,150],[634,122],[618,96],[606,80]];
+    later(()=>animLine(ctx,rt2,GRAY,1.2,600,true,()=>{
+      later(()=>{
+        arrow(ctx,606,80,603,80,RED);
+        txt(ctx,'Retest OB â†’ sell',555,230,RED,11,'left','500');
+        const drop=[[606,80],[620,108],[632,140],[642,172],[650,205]];
+        animLine(ctx,drop,RED,2.5,700);
+      },200);
+    }),200);
+  }),600);
+}
+function drawLiqPanel(){
+  ct();const {ctx,W,H}=setup(1);grid(ctx,W,H);
+  hline(ctx,30,30,W-10,RED,[6,4]);
+  txt(ctx,'BSL â€” buy side liquidity (equal highs)',35,26,RED,11,'left','500');
+  hline(ctx,228,30,W-10,GREEN,[6,4]);
+  txt(ctx,'SSL â€” sell side liquidity (equal lows)',35,244,GREEN,11,'left','500');
+  [[50,105,115,92,124,true],[78,115,108,98,122,false],[106,108,118,98,128,true],[134,118,112,105,126,false],[162,112,120,102,130,true]]
+    .forEach(([x,o,c2,l,h,b])=>candle(ctx,x,o,h,l,c2,b,12));
+  const sslPath=[[190,115],[210,145],[230,178],[248,210],[258,222],[265,235]];
+  later(()=>animLine(ctx,sslPath,BLUE,2,800,false,()=>{
+    later(()=>pulseDot(ctx,265,235,RED,()=>{
+      txt(ctx,'SSL swept',250,250,GREEN,11,'center','500');
+      const up=[[265,235],[282,210],[305,168],[332,128],[362,92],[394,62],[424,38]];
+      later(()=>animLine(ctx,up,GREEN,2.5,900,false,()=>txt(ctx,'Reversal up',385,32,GREEN,11,'left','500')),300);
+    }),100);
+  }),200);
+  const bslPath=[[424,38],[440,32],[456,27],[470,22],[478,18]];
+  later(()=>animLine(ctx,bslPath,BLUE,2,400,false,()=>{
+    later(()=>pulseDot(ctx,478,18,RED,()=>{
+      txt(ctx,'BSL swept',440,13,RED,11,'center','500');
+      const dn=[[478,18],[494,38],[515,72],[540,112],[562,145],[582,170],[600,198]];
+      later(()=>animLine(ctx,dn,RED,2.5,900,false,()=>txt(ctx,'Reversal down',520,218,RED,11,'left','500')),300);
+    }),100);
+  }),1600);
+}
+function drawFVGPanel(){
+  ct();const {ctx,W,H}=setup(2);grid(ctx,W,H);
+  [[52,170,160,178,152,false],[84,160,155,165,148,false]]
+    .forEach(([x,o,c2,l,h,b])=>candle(ctx,x,o,h,l,c2,b,12));
+  later(()=>{
+    candle(ctx,116,155,72,166,78,true,16);
+    later(()=>{
+      candle(ctx,150,72,64,82,58,true,12);
+      zone(ctx,36,64,170,152,GREEN_L,GREEN);
+      hline(ctx,64,36,170,GREEN,[3,3]);hline(ctx,152,36,170,GREEN,[3,3]);
+      txt(ctx,'Bullish FVG',103,114,GREEN,11,'center','500');
+      txt(ctx,'C1 high â†’ C3 low gap',103,128,GREEN+'88',10,'center');
+      const rt=[[158,58],[172,78],[184,102],[193,128],[200,150]];
+      later(()=>animLine(ctx,rt,GRAY,1.2,600,true,()=>{
+        zone(ctx,36,64,170,152,GREEN_L,GREEN);
+        arrow(ctx,200,150,172,115,GREEN);
+        txt(ctx,'FVG retest â†’ buy',175,112,GREEN,11,'left','500');
+        const cont=[[200,150],[218,126],[240,100],[260,72],[280,48]];
+        later(()=>animLine(ctx,cont,GREEN,2.5,600),200);
+      }),400);
+    },300);
+  },300);
+  [[440,82,92,72,102,true],[472,92,88,82,100,true]]
+    .forEach(([x,o,c2,l,h,b])=>candle(ctx,x,o,h,l,c2,b,12));
+  later(()=>{
+    later(()=>{
+      candle(ctx,505,88,168,100,174,false,16);
+      later(()=>{
+        candle(ctx,538,168,178,158,188,false,12);
+        zone(ctx,426,100,552,155,RED_L,RED);
+        hline(ctx,100,426,552,RED,[3,3]);hline(ctx,155,426,552,RED,[3,3]);
+        txt(ctx,'Bearish FVG',489,132,RED,11,'center','500');
+        const rt2=[[546,178],[558,162],[566,142],[572,122],[576,104]];
+        later(()=>animLine(ctx,rt2,GRAY,1.2,600,true,()=>{
+          zone(ctx,426,100,552,155,RED_L,RED);
+          arrow(ctx,576,104,553,128,RED);
+          txt(ctx,'FVG retest â†’ sell',556,126,RED,11,'left','500');
+          const cont2=[[576,104],[590,132],[604,162],[616,192],[624,222]];
+          later(()=>animLine(ctx,cont2,RED,2.5,600),200);
+        }),400);
+      },300);
+    },300);
+  },900);
+}
+function drawBOSPanel(){
+  ct();const {ctx,W,H}=setup(3);grid(ctx,W,H);
+  const dn=[[40,38],[82,80],[126,54],[172,106],[218,80],[262,130],[302,104]];
+  animLine(ctx,dn,RED,2,1000,false,()=>{
+    hline(ctx,54,40,W-10,'#555',[6,4]);
+    txt(ctx,'Prev swing high',45,50,TXTS,11,'left');
+    const choch=[[302,104],[322,84],[342,58],[358,48],[372,44]];
+    later(()=>animLine(ctx,choch,BLUE,2.5,600,false,()=>{
+      txt(ctx,'CHoCH',312,40,BLUE,12,'left','500');
+      later(()=>{
+        arrow(ctx,372,44,W/2+60,44,BLUE);
+        txt(ctx,'Structure shift!',W/2+65,40,BLUE,11,'left');
+        const bull=[[372,44],[405,34],[440,24],[475,18],[510,28],[545,14]];
+        animLine(ctx,bull,GREEN,2.2,700,false,()=>{
+          txt(ctx,'BOS confirmed â†‘',460,10,GREEN,12,'left','500');
+        });
+      },300);
+    }),400);
+  });
+  const up2=[[40,222],[82,185],[126,207],[168,168],[210,190],[252,152],[292,170]];
+  later(()=>animLine(ctx,up2,GREEN,2,800,false,()=>{
+    hline(ctx,207,40,W-20,'#555',[6,4]);
+    txt(ctx,'Prev swing low',45,218,TXTS,11,'left');
+    const sell=[[292,170],[312,188],[332,207],[352,222],[370,226]];
+    later(()=>animLine(ctx,sell,GRAY,1.5,500,false,()=>{
+      const bdown=[[370,226],[386,220],[402,234],[416,244],[428,250]];
+      later(()=>animLine(ctx,bdown,RED,2,500,false,()=>{
+        txt(ctx,'CHoCH down',334,260,RED,12,'left','500');
+        later(()=>{
+          const fallBOS=[[428,250],[442,244],[456,258],[468,250]];
+          animLine(ctx,fallBOS,RED,1.5,400,false,()=>{
+            txt(ctx,'BOS confirmed â†“',360,H-6,RED,12,'left','500');
+          });
+        },200);
+      }),200);
+    }),300);
+  }),1200);
+}
+function drawPDPanel(){
+  ct();const {ctx,W,H}=setup(4);grid(ctx,W,H);
+  const cx=W/2-90,ry=18,rh=222;
+  zone(ctx,cx,ry,cx+180,ry+rh*0.5,RED_L,RED);
+  zone(ctx,cx,ry+rh*0.5,cx+180,ry+rh,GREEN_L,GREEN);
+  hline(ctx,ry,20,W-20,'#444');
+  hline(ctx,ry+rh*0.5,cx-60,cx+180+120,'#555',[6,4]);
+  hline(ctx,ry+rh,20,W-20,'#444');
+  txt(ctx,'High (100%)',cx+185,ry+4,'#666',11,'left');
+  txt(ctx,'Equilibrium 50%',cx+185,ry+rh*0.5+4,'#888',12,'left','500');
+  txt(ctx,'Low (0%)',cx+185,ry+rh+4,'#666',11,'left');
+  txt(ctx,'PREMIUM',cx+90,ry+48,RED,14,'center','500');
+  txt(ctx,'Sell zone â€” institutions distribute',cx+90,ry+66,RED+'99',11,'center');
+  txt(ctx,'DISCOUNT',cx+90,ry+rh*0.5+55,GREEN,14,'center','500');
+  txt(ctx,'Buy zone â€” institutions accumulate',cx+90,ry+rh*0.5+72,GREEN+'99',11,'center');
+  hline(ctx,ry+rh*0.214,cx-60,cx,AMBER,[4,3]);
+  txt(ctx,'Golden pocket',cx-65,ry+rh*0.214+4,AMBER,10,'right');
+  txt(ctx,'78.6%',cx-65,ry+rh*0.214-5,AMBER+'88',10,'right');
+  [['100%',ry],['61.8%',ry+rh*0.382],['50%',ry+rh*0.5],['38.2%',ry+rh*0.618],['0%',ry+rh]]
+    .forEach(([l,y])=>txt(ctx,l,cx-5,y+4,'#555',10,'right'));
+  later(()=>{
+    const discX=cx+45,discY=ry+rh*0.67;
+    pulseDot(ctx,discX,discY,GREEN,()=>{
+      txt(ctx,'BUY here (discount)',discX+8,discY+4,GREEN,11,'left','500');
+      const up=[[discX,discY],[discX-15,discY-35],[discX-22,discY-80],[discX-20,ry+30]];
+      animLine(ctx,up,GREEN,2.5,700);
+    });
+  },600);
+  later(()=>{
+    const premX=cx+135,premY=ry+rh*0.15;
+    pulseDot(ctx,premX,premY,RED,()=>{
+      txt(ctx,'SELL here (premium)',premX+8,premY+4,RED,11,'left','500');
+      const down=[[premX,premY],[premX+12,premY+45],[premX+18,premY+110],[premX+12,premY+168]];
+      animLine(ctx,down,RED,2.5,700);
+    });
+  },2200);
+}
+const modelSteps=[
+  {label:'1. HTF bias',info:'Higher timeframe (daily/weekly): identify BOS/CHoCH. Is price in a bullish or bearish structure? This is your trading direction â€” never trade against it.',color:GREEN},
+  {label:'2. Liquidity target',info:'Mark all BSL (equal highs, prev day high) and SSL (equal lows, prev day low). Where is smart money likely targeting next?',color:BLUE},
+  {label:'3. Premium / discount',info:'Draw Fibonacci from the most recent swing. Is price in discount zone (0â€“50%) for buys, or premium zone (50â€“100%) for sells?',color:'#9F77DD'},
+  {label:'4. POI â€” point of interest',info:'Drop to lower timeframe. Find the Order Block or Fair Value Gap inside the premium/discount zone that aligns with your HTF bias.',color:AMBER},
+  {label:'5. LTF confirmation',info:'Wait for price to reach the POI. Look for CHoCH on LTF, a rejection wick, or market structure shift. Never enter blind into a zone.',color:GREEN},
+  {label:'6. SL / TP placement',info:'SL: Below the OB low (buys) or above OB high (sells). TP: Next liquidity pool â€” BSL for buys, SSL for sells. Aim for minimum 1:3 RR.',color:RED},
+];
+let curStep=0;
+function drawModelStep(step){
+  const {ctx,W,H}=setup(5);grid(ctx,W,H);
+  const totalSteps=modelSteps.length,barW=(W-40)/totalSteps;
+  for(let i=0;i<totalSteps;i++){
+    const s=modelSteps[i],bx=20+i*barW,by=H-46,bh=32;
+    ctx.fillStyle=i<=step?s.color+'22':'#1a1a1a';ctx.fillRect(bx,by,barW-4,bh);
+    ctx.strokeStyle=i===step?s.color:'#2a2a2a';ctx.lineWidth=i===step?1.5:0.5;ctx.strokeRect(bx,by,barW-4,bh);
+    txt(ctx,(i+1).toString(),bx+(barW-4)/2,by+bh/2+4,i<=step?s.color:TXTS,13,'center','500');
+  }
+  const y0=38,x0=20,chartW=W-40,maxH=H-62;
+  const allPts=[
+    [[0,0.5],[0.05,0.56],[0.1,0.62],[0.15,0.53]],
+    [[0.15,0.53],[0.2,0.44],[0.25,0.34],[0.3,0.4]],
+    [[0.3,0.4],[0.32,0.38],[0.35,0.36],[0.38,0.35]],
+    [[0.38,0.35],[0.4,0.33],[0.42,0.29],[0.45,0.27],[0.48,0.3]],
+    [[0.48,0.3],[0.5,0.31],[0.52,0.27]],
+    [[0.52,0.27],[0.56,0.21],[0.61,0.14],[0.66,0.09],[0.72,0.07]],
+  ];
+  const ptx=px=>x0+px*chartW,pty=py=>y0+py*maxH;
+  for(let i=0;i<=step;i++){
+    const pts=allPts[i].map(([px,py])=>[ptx(px),pty(py)]);
+    ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+    for(let j=1;j<pts.length;j++)ctx.lineTo(pts[j][0],pts[j][1]);
+    ctx.strokeStyle=modelSteps[i].color;ctx.lineWidth=2;ctx.setLineDash([]);ctx.stroke();
+    if(i===step){const last=pts[pts.length-1];ctx.beginPath();ctx.arc(last[0],last[1],5,0,Math.PI*2);ctx.fillStyle=modelSteps[i].color;ctx.fill();}
+  }
+  if(step>=0)txt(ctx,'HTF BOS â†‘',ptx(0.04),pty(0.46),GREEN,10,'center');
+  if(step>=1){hline(ctx,pty(0.35),ptx(0.1),ptx(0.52),BLUE,[4,3]);txt(ctx,'SSL',ptx(0.08),pty(0.38),BLUE,10,'right');}
+  if(step>=2){zone(ctx,ptx(0.26),pty(0.29),ptx(0.62),pty(0.5),'rgba(100,180,40,0.08)',GREEN+'44');txt(ctx,'Discount zone',ptx(0.44),pty(0.47),GREEN+'88',10,'center');}
+  if(step>=3){zone(ctx,ptx(0.38),pty(0.32),ptx(0.51),pty(0.42),'rgba(239,159,39,0.18)',AMBER);txt(ctx,'OB/FVG',ptx(0.445),pty(0.38),AMBER,10,'center','500');}
+  if(step>=4){ctx.beginPath();ctx.arc(ptx(0.48),pty(0.3),6,0,Math.PI*2);ctx.strokeStyle=GREEN;ctx.lineWidth=2;ctx.setLineDash([]);ctx.stroke();txt(ctx,'Confirm',ptx(0.5),pty(0.26),GREEN,10,'left','500');}
+  if(step>=5){
+    hline(ctx,pty(0.33),ptx(0.47),ptx(0.76),RED,[3,3]);txt(ctx,'SL',ptx(0.77),pty(0.36),RED,10,'left');
+    hline(ctx,pty(0.07),ptx(0.47),ptx(0.76),GREEN,[3,3]);txt(ctx,'TP (BSL)',ptx(0.77),pty(0.1),GREEN,10,'left');
+    ctx.fillStyle='rgba(100,180,40,0.08)';ctx.fillRect(ptx(0.47),pty(0.07),ptx(0.76)-ptx(0.47),pty(0.33)-pty(0.07));
+  }
+  document.getElementById('stepnum').textContent='Step '+(step+1)+' / '+totalSteps;
+  document.getElementById('stepinfo').textContent=modelSteps[step].info;
+}
+function stepModel(dir){curStep=Math.max(0,Math.min(modelSteps.length-1,curStep+dir));drawModelStep(curStep);}
+function replay(id){ct();[drawOBPanel,drawLiqPanel,drawFVGPanel,drawBOSPanel,drawPDPanel,()=>{curStep=0;drawModelStep(0);}][id]();}
+function sw(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('p'+id).classList.add('on');
+  el.classList.add('on');ct();
+  [drawOBPanel,drawLiqPanel,drawFVGPanel,drawBOSPanel,drawPDPanel,()=>{curStep=0;drawModelStep(0);}][id]();
+}
+drawOBPanel();
+</script>
+<!-- â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�
+     SCRIPT 2 â€” ENTRY LOGIC CHARTS (from SMF_Entries_Visual.html)
+â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•�â•� -->
+<script>
+const C = {
+  bg:'#0d1117',bull:'#00e676',bear:'#ff1744',
+  gold:'#ffd54f',blue:'#29b6f6',muted:'#546e7a',
+  line:'#1e2730',text:'#cfd8dc',purple:'#ce93d8',
+  bullDim:'rgba(0,230,118,0.15)',bearDim:'rgba(255,23,68,0.15)',
+  goldDim:'rgba(255,213,79,0.12)',blueDim:'rgba(41,182,246,0.12)',
+};
+function setupCanvas(id){
+  const el=document.getElementById(id);if(!el)return null;
+  const dpr=window.devicePixelRatio||1;
+  const rect=el.parentElement.getBoundingClientRect();
+  const w=rect.width||380,h=parseInt(el.height)||160;
+  el.width=w*dpr;el.height=h*dpr;
+  el.style.width=w+'px';el.style.height=h+'px';
+  const ctx=el.getContext('2d');
+  ctx.scale(dpr,dpr);ctx.fillStyle=C.bg;ctx.fillRect(0,0,w,h);
+  return{ctx,w,h};
+}
+function drawCandle(ctx,x,o,h,l,c,bull,w=10){
+  const col=bull?C.bull:C.bear;
+  ctx.strokeStyle=col;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(x,h);ctx.lineTo(x,l);ctx.stroke();
+  ctx.fillStyle=bull?C.bullDim:C.bearDim;ctx.strokeStyle=col;ctx.lineWidth=1.5;
+  const top=Math.min(o,c),bot=Math.max(o,c);
+  ctx.beginPath();ctx.roundRect(x-w/2,top,w,Math.max(bot-top,2),1);ctx.fill();ctx.stroke();
+}
+function drawDotLine(ctx,x1,y1,x2,y2,col,dash=[4,4]){
+  ctx.save();ctx.strokeStyle=col;ctx.lineWidth=1;ctx.setLineDash(dash);
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();
+}
+function drawSolidLine(ctx,x1,y1,x2,y2,col,w=1.5){
+  ctx.save();ctx.strokeStyle=col;ctx.lineWidth=w;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore();
+}
+function drawBox(ctx,x1,y1,x2,y2,fill,stroke){
+  ctx.fillStyle=fill;ctx.fillRect(x1,y1,x2-x1,y2-y1);
+  if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.strokeRect(x1,y1,x2-x1,y2-y1);}
+}
+function drawLabel(ctx,x,y,text,col,align='center',size=10){
+  ctx.fillStyle=col;ctx.font=`${size}px 'Space Mono',monospace`;
+  ctx.textAlign=align;ctx.fillText(text,x,y);
+}
+function drawArrow(ctx,x1,y1,x2,y2,col){
+  drawSolidLine(ctx,x1,y1,x2,y2,col,1.5);
+  const ang=Math.atan2(y2-y1,x2-x1);ctx.fillStyle=col;
+  ctx.beginPath();ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-8*Math.cos(ang-0.4),y2-8*Math.sin(ang-0.4));
+  ctx.lineTo(x2-8*Math.cos(ang+0.4),y2-8*Math.sin(ang+0.4));
+  ctx.closePath();ctx.fill();
+}
+
+// CHoCH BULL
+(function(){
+  const r=setupCanvas('choch_bull');if(!r)return;const{ctx,w,h}=r;
+  const candles=[
+    {x:40,o:110,h:100,l:130,c:125,bull:false},{x:65,o:120,h:108,l:135,c:128,bull:false},
+    {x:90,o:125,h:118,l:143,c:135,bull:false},{x:115,o:133,h:125,l:148,c:142,bull:false},
+    {x:140,o:140,h:130,l:150,c:148,bull:false},{x:165,o:145,h:128,l:155,c:132,bull:true},
+    {x:190,o:130,h:118,l:148,c:122,bull:true},{x:215,o:118,h:108,l:135,c:112,bull:true},
+    {x:240,o:115,h:102,l:135,c:106,bull:true},{x:265,o:108,h:95,l:132,c:90,bull:true},
+    {x:295,o:95,h:78,l:120,c:82,bull:true},
+  ];
+  candles.forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  const ph=125;
+  drawDotLine(ctx,30,ph,295,ph,C.muted);
+  drawLabel(ctx,310,ph+4,'lastH',C.muted,'left',9);
+  drawSolidLine(ctx,165,ph,295,ph,C.bull,1.5);
+  drawArrow(ctx,295,100,295,78,C.bull);
+  drawLabel(ctx,295,68,'CHoCH',C.bull,'center',10);
+  drawLabel(ctx,295,152,'close > lastH âœ“',C.bull,'center',9);
+}());
+
+// CHoCH BEAR
+(function(){
+  const r=setupCanvas('choch_bear');if(!r)return;const{ctx,w,h}=r;
+  const candles=[
+    {x:40,o:60,h:45,l:75,c:52,bull:true},{x:65,o:52,h:38,l:65,c:44,bull:true},
+    {x:90,o:44,h:32,l:58,c:38,bull:true},{x:115,o:40,h:28,l:52,c:35,bull:true},
+    {x:140,o:38,h:28,l:50,c:42,bull:false},{x:165,o:42,h:35,l:60,c:55,bull:false},
+    {x:190,o:55,h:45,l:72,c:68,bull:false},{x:215,o:68,h:58,l:85,c:80,bull:false},
+    {x:240,o:78,h:68,l:95,c:90,bull:false},{x:270,o:90,h:78,l:108,c:102,bull:false},
+  ];
+  candles.forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  const pl=60;
+  drawDotLine(ctx,30,pl,270,pl,C.muted);
+  drawLabel(ctx,280,pl+4,'lastL',C.muted,'left',9);
+  drawArrow(ctx,270,80,270,108,C.bear);
+  drawLabel(ctx,270,120,'CHoCH',C.bear,'center',10);
+  drawLabel(ctx,270,145,'close < lastL âœ“',C.bear,'center',9);
+}());
+
+// BOS BULL
+(function(){
+  const r=setupCanvas('bos_bull');if(!r)return;const{ctx,w,h}=r;
+  [{x:35,o:130,h:118,l:140,c:122,bull:true},{x:60,o:122,h:108,l:132,c:110,bull:true},
+   {x:85,o:110,h:98,l:122,c:100,bull:true},{x:110,o:102,h:88,l:115,c:92,bull:true},
+   {x:135,o:95,h:88,l:108,c:92,bull:true},{x:160,o:92,h:80,l:104,c:84,bull:true},
+   {x:185,o:84,h:70,l:98,c:76,bull:true},{x:210,o:80,h:65,l:95,c:70,bull:true},
+   {x:235,o:72,h:58,l:85,c:62,bull:true},{x:265,o:62,h:48,l:78,c:52,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  const hl=100;
+  drawDotLine(ctx,25,hl,265,hl,C.muted,[3,3]);
+  drawLabel(ctx,270,hl+4,'lastH',C.muted,'left',9);
+  ctx.save();ctx.strokeStyle=C.bull;ctx.lineWidth=1.5;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(185,hl);ctx.lineTo(265,hl);ctx.stroke();ctx.restore();
+  drawArrow(ctx,265,80,265,48,C.bull);
+  drawLabel(ctx,265,40,'BOS',C.bull,'center',10);
+  drawLabel(ctx,265,145,'BOS â†‘ (continuation)',C.bull,'center',9);
+}());
+
+// BOS BEAR
+(function(){
+  const r=setupCanvas('bos_bear');if(!r)return;const{ctx,w,h}=r;
+  [{x:35,o:60,h:48,l:72,c:68,bull:false},{x:60,o:68,h:55,l:80,c:74,bull:false},
+   {x:85,o:74,h:62,l:88,c:82,bull:false},{x:110,o:80,h:68,l:95,c:88,bull:false},
+   {x:135,o:88,h:78,l:102,c:96,bull:false},{x:160,o:96,h:88,l:110,c:104,bull:false},
+   {x:185,o:102,h:92,l:115,c:110,bull:false},{x:210,o:108,h:98,l:122,c:116,bull:false},
+   {x:235,o:115,h:106,l:130,c:124,bull:false},{x:265,o:122,h:112,l:138,c:132,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  const ll=72;
+  drawDotLine(ctx,25,ll,265,ll,C.muted,[3,3]);
+  drawLabel(ctx,270,ll+4,'lastL',C.muted,'left',9);
+  ctx.save();ctx.strokeStyle=C.bear;ctx.lineWidth=1.5;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(185,ll);ctx.lineTo(265,ll);ctx.stroke();ctx.restore();
+  drawArrow(ctx,265,115,265,138,C.bear);
+  drawLabel(ctx,265,152,'BOS â†“ (continuation)',C.bear,'center',9);
+  drawLabel(ctx,265,108,'BOS',C.bear,'center',10);
+}());
+
+// IDM BULL
+(function(){
+  const r=setupCanvas('idm_bull');if(!r)return;const{ctx,w,h}=r;
+  [{x:30,o:140,h:130,l:148,c:133,bull:true},{x:55,o:130,h:118,l:140,c:120,bull:true},
+   {x:80,o:118,h:105,l:128,c:108,bull:true},{x:105,o:108,h:100,l:118,c:102,bull:true},
+   {x:130,o:105,h:95,l:118,c:100,bull:true},
+   {x:155,o:102,h:92,l:112,c:108,bull:false},{x:180,o:108,h:100,l:118,c:114,bull:false},
+   {x:205,o:112,h:108,l:128,c:122,bull:false},{x:230,o:118,h:110,l:132,c:125,bull:false},
+   {x:260,o:125,h:116,l:138,c:130,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,12));
+  drawBox(ctx,145,92,350,112,C.bullDim,C.bull);
+  drawLabel(ctx,150,106,'IDMâ–ªOB  Demand',C.bull,'left',9);
+  const idmLow=128;
+  drawDotLine(ctx,45,idmLow,260,idmLow,C.muted);
+  drawLabel(ctx,262,idmLow+4,'idmLow',C.muted,'left',9);
+  drawArrow(ctx,260,115,260,138,C.bear);
+  drawLabel(ctx,255,152,'IDM sweep',C.gold,'center',9);
+  drawLabel(ctx,200,80,'Entry: Long from IDMâ–ªOB',C.bull,'center',10);
+}());
+
+// IDM BEAR
+(function(){
+  const r=setupCanvas('idm_bear');if(!r)return;const{ctx,w,h}=r;
+  [{x:30,o:60,h:50,l:72,c:65,bull:false},{x:55,o:65,h:55,l:78,c:70,bull:false},
+   {x:80,o:70,h:60,l:82,c:75,bull:false},{x:105,o:75,h:65,l:86,c:78,bull:false},
+   {x:130,o:76,h:68,l:85,c:72,bull:true},{x:155,o:72,h:62,l:80,c:66,bull:true},
+   {x:185,o:68,h:58,l:78,c:74,bull:false},{x:210,o:74,h:62,l:82,c:78,bull:false},
+   {x:240,o:78,h:65,l:88,c:82,bull:false},{x:265,o:82,h:68,l:92,c:86,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,12));
+  drawBox(ctx,120,62,350,80,C.bearDim,C.bear);
+  drawLabel(ctx,125,76,'IDMâ–ªOB  Supply',C.bear,'left',9);
+  const idmHigh=58;
+  drawDotLine(ctx,45,idmHigh,265,idmHigh,C.muted);
+  drawLabel(ctx,270,idmHigh+4,'idmHigh',C.muted,'left',9);
+  drawArrow(ctx,265,72,265,55,C.bull);
+  drawLabel(ctx,255,45,'IDM sweep',C.gold,'center',9);
+  drawLabel(ctx,185,145,'Entry: Short from IDMâ–ªOB',C.bear,'center',10);
+}());
+
+// EXT OB BULL (demand)
+(function(){
+  const r=setupCanvas('extob_bull');if(!r)return;const{ctx,w,h}=r;
+  [{x:40,o:130,h:118,l:140,c:122,bull:true},{x:65,o:122,h:110,l:132,c:112,bull:true},
+   {x:90,o:112,h:100,l:124,c:104,bull:true},{x:115,o:104,h:92,l:118,c:98,bull:true},
+   {x:140,o:96,h:84,l:108,c:88,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawBox(ctx,20,84,350,100,C.bullDim,C.bull);
+  drawLabel(ctx,30,96,'EXTâ–ªOB Demand Zone',C.bull,'left',9);
+  [{x:170,o:88,h:76,l:100,c:80,bull:true},{x:195,o:80,h:68,l:92,c:72,bull:true},
+   {x:220,o:72,h:60,l:84,c:64,bull:true},{x:248,o:65,h:55,l:82,c:76,bull:false},
+   {x:275,o:76,h:65,l:88,c:82,bull:false},{x:305,o:82,h:70,l:96,c:88,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawArrow(ctx,248,58,248,40,C.bull);
+  drawLabel(ctx,248,30,'LONG',C.bull,'center',9);
+}());
+
+// EXT OB BEAR (supply)
+(function(){
+  const r=setupCanvas('extob_bear');if(!r)return;const{ctx,w,h}=r;
+  [{x:40,o:50,h:38,l:62,c:58,bull:false},{x:65,o:58,h:46,l:70,c:66,bull:false},
+   {x:90,o:66,h:54,l:78,c:72,bull:false},{x:115,o:72,h:60,l:84,c:78,bull:false},
+   {x:140,o:78,h:66,l:90,c:84,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawBox(ctx,20,60,350,76,C.bearDim,C.bear);
+  drawLabel(ctx,30,72,'EXTâ–ªOB Supply Zone',C.bear,'left',9);
+  [{x:170,o:84,h:72,l:96,c:90,bull:false},{x:195,o:90,h:78,l:102,c:96,bull:false},
+   {x:220,o:96,h:82,l:108,c:102,bull:false},{x:248,o:100,h:78,l:112,c:84,bull:true},
+   {x:275,o:84,h:74,l:96,c:78,bull:true},{x:305,o:78,h:68,l:90,c:72,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawArrow(ctx,248,110,248,128,C.bear);
+  drawLabel(ctx,248,140,'SHORT',C.bear,'center',9);
+}());
+
+// BREAKER BULL
+(function(){
+  const r=setupCanvas('breaker_bull');if(!r)return;const{ctx,w,h}=r;
+  drawBox(ctx,20,55,180,75,C.bearDim,C.bear);
+  drawLabel(ctx,100,68,'Old Supply OB',C.bear,'center',9);
+  [{x:40,o:100,h:88,l:112,c:92,bull:true},{x:65,o:92,h:80,l:104,c:84,bull:true},
+   {x:90,o:82,h:68,l:94,c:72,bull:true},{x:115,o:70,h:55,l:82,c:60,bull:true},
+   {x:140,o:58,h:44,l:70,c:50,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawSolidLine(ctx,140,50,250,50,C.bull,2);
+  drawLabel(ctx,195,44,'BOS â€” breaks supply',C.bull,'center',8);
+  [{x:175,o:50,h:38,l:62,c:44,bull:true},{x:200,o:44,h:32,l:56,c:38,bull:true},
+   {x:225,o:40,h:52,l:30,c:48,bull:false},{x:250,o:48,h:60,l:38,c:56,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawBox(ctx,175,55,340,75,'rgba(0,230,118,0.1)',C.bull);
+  drawLabel(ctx,258,70,'Breaker â†’ Demand',C.bull,'left',9);
+  drawArrow(ctx,255,58,255,38,C.bull);
+  drawLabel(ctx,255,28,'LONG',C.bull,'center',9);
+}());
+
+// MITIGATION BEAR
+(function(){
+  const r=setupCanvas('mitigation_bear');if(!r)return;const{ctx,w,h}=r;
+  [{x:40,o:80,h:68,l:92,c:86,bull:false},{x:65,o:86,h:72,l:98,c:92,bull:false},
+   {x:90,o:92,h:78,l:104,c:98,bull:false},{x:115,o:94,h:78,l:106,c:90,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawBox(ctx,20,78,200,96,C.bearDim,C.bear);
+  drawLabel(ctx,110,90,'Supply OB Zone',C.bear,'center',9);
+  [{x:140,o:90,h:76,l:102,c:80,bull:true},{x:165,o:80,h:68,l:92,c:72,bull:true},
+   {x:190,o:72,h:60,l:86,c:64,bull:true},{x:220,o:66,h:56,l:80,c:62,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  [{x:248,o:64,h:54,l:78,c:70,bull:false},{x:278,o:70,h:58,l:82,c:76,bull:false},
+   {x:308,o:74,h:62,l:88,c:80,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawArrow(ctx,308,64,308,48,C.bear);
+  drawLabel(ctx,308,40,'SHORT',C.bear,'center',9);
+  drawLabel(ctx,175,148,'Retrace into supply OB â†’ Short entry',C.bear,'center',9);
+}());
+
+// SCOB BULL
+(function(){
+  const r=setupCanvas('scob_bull');if(!r)return;const{ctx,w,h}=r;
+  const obTop=80,obBot=95;
+  drawBox(ctx,20,obTop,360,obBot,'rgba(0,230,118,0.1)',C.bull);
+  drawLabel(ctx,30,92,'Demand OB',C.bull,'left',8);
+  [{x:50,o:120,h:108,l:130,c:112,bull:true},{x:80,o:112,h:100,l:124,c:104,bull:true},
+   {x:110,o:104,h:92,l:116,c:96,bull:true},{x:140,o:98,h:85,l:110,c:90,bull:true},
+   {x:170,o:92,h:82,l:104,c:86,bull:true},
+   {x:200,o:88,h:78,l:100,c:82,bull:true},
+   {x:230,o:84,h:68,l:96,c:72,bull:true},
+   {x:260,o:72,h:60,l:85,c:76,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  ctx.save();ctx.strokeStyle=C.gold;ctx.lineWidth=2;ctx.setLineDash([2,2]);ctx.strokeRect(222,60,22,42);ctx.restore();
+  drawLabel(ctx,233,52,'SCOB',C.gold,'center',9);
+  drawArrow(ctx,265,65,290,45,C.bull);
+  drawLabel(ctx,295,38,'LONG',C.bull,'left',9);
+}());
+
+// SCOB BEAR
+(function(){
+  const r=setupCanvas('scob_bear');if(!r)return;const{ctx,w,h}=r;
+  const obTop=70,obBot=85;
+  drawBox(ctx,20,obTop,360,obBot,'rgba(255,23,68,0.1)',C.bear);
+  drawLabel(ctx,30,82,'Supply OB',C.bear,'left',8);
+  [{x:50,o:50,h:38,l:62,c:56,bull:false},{x:80,o:56,h:44,l:68,c:62,bull:false},
+   {x:110,o:62,h:50,l:74,c:68,bull:false},{x:140,o:68,h:55,l:80,c:74,bull:false},
+   {x:170,o:74,h:60,l:86,c:80,bull:false},{x:200,o:80,h:66,l:92,c:86,bull:false},
+   {x:230,o:86,h:70,l:98,c:92,bull:false},
+   {x:260,o:90,h:76,l:104,c:96,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  ctx.save();ctx.strokeStyle=C.gold;ctx.lineWidth=2;ctx.setLineDash([2,2]);ctx.strokeRect(222,66,22,44);ctx.restore();
+  drawLabel(ctx,233,58,'SCOB',C.gold,'center',9);
+  drawArrow(ctx,265,96,290,116,C.bear);
+  drawLabel(ctx,295,125,'SHORT',C.bear,'left',9);
+}());
+
+// OSB BULL
+(function(){
+  const r=setupCanvas('osb_bull');if(!r)return;const{ctx,w,h}=r;
+  [{x:60,o:90,h:78,l:104,c:96,bull:false},{x:90,o:96,h:82,l:110,c:104,bull:false},
+   {x:120,o:100,h:88,l:116,c:108,bull:false},{x:150,o:108,h:96,l:120,c:112,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawCandle(ctx,188,115,68,130,75,true,22);
+  ctx.save();ctx.strokeStyle=C.blue;ctx.lineWidth=2;ctx.setLineDash([2,2]);ctx.strokeRect(177,68,22,62);ctx.restore();
+  drawLabel(ctx,188,58,'OSB â†‘',C.blue,'center',9);
+  drawLabel(ctx,188,148,'Outside Bar â€” Bullish close',C.bull,'center',9);
+  [{x:225,o:75,h:62,l:88,c:68,bull:true},{x:255,o:68,h:55,l:80,c:60,bull:true},
+   {x:285,o:60,h:48,l:72,c:52,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+}());
+
+// OSB BEAR
+(function(){
+  const r=setupCanvas('osb_bear');if(!r)return;const{ctx,w,h}=r;
+  [{x:60,o:50,h:38,l:62,c:44,bull:true},{x:90,o:44,h:32,l:56,c:38,bull:true},
+   {x:120,o:38,h:26,l:50,c:32,bull:true},{x:150,o:32,h:20,l:44,c:26,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawCandle(ctx,188,22,12,80,72,false,22);
+  ctx.save();ctx.strokeStyle='#da781d';ctx.lineWidth=2;ctx.setLineDash([2,2]);ctx.strokeRect(177,12,22,70);ctx.restore();
+  drawLabel(ctx,188,148,'Outside Bar â€” Bearish close',C.bear,'center',9);
+  drawLabel(ctx,188,5,'OSB â†“','#da781d','center',9);
+  [{x:225,o:72,h:82,l:60,c:78,bull:false},{x:255,o:78,h:88,l:68,c:84,bull:false},
+   {x:285,o:84,h:95,l:74,c:90,bull:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+}());
+
+// ISB
+(function(){
+  const r=setupCanvas('isb');if(!r)return;const{ctx,w,h}=r;
+  drawCandle(ctx,80,50,28,100,88,false,28);
+  drawLabel(ctx,80,18,'Mother Bar',C.gold,'center',9);
+  ctx.save();ctx.strokeStyle=C.purple;ctx.lineWidth=2;ctx.setLineDash([]);
+  ctx.strokeRect(56,28,48,72);ctx.restore();
+  drawLabel(ctx,80,108,'Inside Bar range',C.purple,'center',8);
+  [{x:130,o:75,h:65,l:85,c:68,bull:true},{x:158,o:68,h:58,l:78,c:62,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  [{x:186,o:58,h:48,l:68,c:55,bull:true},{x:214,o:55,h:45,l:65,c:52,bull:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.bull,14));
+  drawLabel(ctx,175,32,'ISB chain',C.purple,'center',8);
+  drawArrow(ctx,250,56,290,30,C.bull);
+  drawLabel(ctx,295,24,'Breakout',C.bull,'left',9);
+  drawLabel(ctx,175,148,'Breakout of mother bar = ISB entry',C.purple,'center',9);
+}());
+
+// BSL
+(function(){
+  const r=setupCanvas('bsl');if(!r)return;const{ctx,w,h}=r;
+  const bslY=40;
+  const cdat=[
+    {x:40,o:120,h:bslY,l:130,c:125,b:true},{x:68,o:125,h:105,l:135,c:128,b:false},
+    {x:96,o:128,h:bslY+2,l:138,c:132,b:true},{x:124,o:132,h:115,l:142,c:136,b:false},
+    {x:152,o:136,h:bslY+3,l:145,c:140,b:true},{x:180,o:140,h:118,l:150,c:145,b:false},
+    {x:210,o:142,h:bslY-8,l:152,c:148,b:false},
+    {x:240,o:148,h:130,l:160,c:155,b:false},{x:270,o:155,h:140,l:168,c:162,b:false},
+  ];
+  cdat.forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.b,14));
+  ctx.save();ctx.strokeStyle=C.bull;ctx.lineWidth=1.5;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(20,bslY);ctx.lineTo(210,bslY);ctx.stroke();
+  ctx.setLineDash([3,3]);ctx.strokeStyle='rgba(0,230,118,0.4)';
+  ctx.beginPath();ctx.moveTo(210,bslY);ctx.lineTo(340,bslY);ctx.stroke();ctx.restore();
+  drawLabel(ctx,345,bslY+4,'BSL',C.bull,'left',9);
+  drawArrow(ctx,210,130,210,bslY-8,C.bear);
+  drawLabel(ctx,200,152,'BSL swept â†’ short setup below',C.bear,'center',9);
+  drawLabel(ctx,110,32,'Equal Highs = BSL Liquidity',C.bull,'center',9);
+}());
+
+// SSL
+(function(){
+  const r=setupCanvas('ssl');if(!r)return;const{ctx,w,h}=r;
+  const sslY=130;
+  const cdat=[
+    {x:40,o:60,h:45,l:sslY,c:55,b:false},{x:68,o:55,h:40,l:115,c:50,b:true},
+    {x:96,o:52,h:38,l:sslY+2,c:58,b:false},{x:124,o:58,h:44,l:118,c:53,b:true},
+    {x:152,o:55,h:40,l:sslY+1,c:60,b:false},{x:180,o:60,h:46,l:115,c:55,b:true},
+    {x:210,o:58,h:42,l:sslY+12,c:54,b:true},
+    {x:240,o:52,h:35,l:108,c:46,b:true},{x:270,o:48,h:30,l:100,c:42,b:true},
+  ];
+  cdat.forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.b,14));
+  ctx.save();ctx.strokeStyle=C.bear;ctx.lineWidth=1.5;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(20,sslY);ctx.lineTo(210,sslY);ctx.stroke();
+  ctx.setLineDash([3,3]);ctx.strokeStyle='rgba(255,23,68,0.4)';
+  ctx.beginPath();ctx.moveTo(210,sslY);ctx.lineTo(340,sslY);ctx.stroke();ctx.restore();
+  drawLabel(ctx,345,sslY+4,'SSL',C.bear,'left',9);
+  drawArrow(ctx,210,55,210,sslY+12,C.bull);
+  drawLabel(ctx,200,152,'SSL swept â†’ long setup above',C.bull,'center',9);
+  drawLabel(ctx,110,32,'Equal Lows = SSL Liquidity',C.bear,'center',9);
+}());
+
+// FVG BULL
+(function(){
+  const r=setupCanvas('fvg_bull');if(!r)return;const{ctx,w,h}=r;
+  drawCandle(ctx,80,115,100,125,118,false,20);
+  drawCandle(ctx,130,95,65,105,70,true,20);
+  drawCandle(ctx,180,68,50,80,55,true,20);
+  drawBox(ctx,100,80,350,100,C.bullDim,C.bull);
+  drawLabel(ctx,106,94,'Bullish FVG Zone',C.bull,'left',9);
+  drawDotLine(ctx,100,90,350,90,C.bull,[2,3]);
+  [{x:215,o:55,h:42,l:70,c:62,b:false},{x:250,o:62,h:50,l:78,c:72,b:false},
+   {x:285,o:72,h:60,l:88,c:82,b:false},{x:320,o:80,h:68,l:98,c:92,b:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.b,14));
+  drawArrow(ctx,320,68,320,52,C.bull);
+  drawLabel(ctx,320,40,'LONG',C.bull,'center',9);
+  drawLabel(ctx,175,148,'Price retraces into FVG â†’ Long entry',C.bull,'center',9);
+}());
+
+// FVG BEAR
+(function(){
+  const r=setupCanvas('fvg_bear');if(!r)return;const{ctx,w,h}=r;
+  drawCandle(ctx,80,55,45,68,52,true,20);
+  drawCandle(ctx,130,70,80,60,102,false,20);
+  drawCandle(ctx,180,105,115,98,112,false,20);
+  drawBox(ctx,100,68,350,80,C.bearDim,C.bear);
+  drawLabel(ctx,106,76,'Bearish FVG Zone',C.bear,'left',9);
+  drawDotLine(ctx,100,74,350,74,C.bear,[2,3]);
+  [{x:215,o:112,h:105,l:120,c:115,b:true},{x:250,o:114,h:106,l:122,c:110,b:true},
+   {x:285,o:108,h:100,l:116,c:104,b:true},{x:320,o:102,h:92,l:110,c:96,b:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.b,14));
+  drawArrow(ctx,320,96,320,112,C.bear);
+  drawLabel(ctx,320,125,'SHORT',C.bear,'center',9);
+  drawLabel(ctx,175,148,'Price rallies into FVG â†’ Short entry',C.bear,'center',9);
+}());
+
+// OTE
+(function(){
+  const r=setupCanvas('ote');if(!r)return;const{ctx,w,h}=r;
+  const swL=130,swH=30;
+  const ote61=swL-(swL-swH)*0.61;
+  const ote78=swL-(swL-swH)*0.78;
+  drawBox(ctx,40,ote78,350,ote61,'rgba(255,213,79,0.12)',C.gold);
+  drawLabel(ctx,46,ote78-4,'OTE 0.78',C.gold,'left',8);
+  drawLabel(ctx,46,ote61+10,'OTE 0.61',C.gold,'left',8);
+  drawLabel(ctx,200,(ote78+ote61)/2+4,'Optimal Trade Entry Zone',C.gold,'center',10);
+  drawSolidLine(ctx,20,swL,140,swH,C.bull,2);
+  drawLabel(ctx,25,swL+10,'swL',C.muted,'left',8);
+  drawLabel(ctx,140,swH-8,'swH',C.muted,'left',8);
+  drawSolidLine(ctx,140,swH,240,ote61-5,C.bear,1.5);
+  drawArrow(ctx,240,ote61-5,280,ote61-5,C.bull);
+  drawLabel(ctx,295,ote61-5,'LONG ğŸ�¯',C.bull,'left',9);
+  drawLabel(ctx,180,148,'Retrace into 61â€“78% of last swing â†’ Entry',C.gold,'center',9);
+}());
+
+// SWEEP
+(function(){
+  const r=setupCanvas('sweep');if(!r)return;const{ctx,w,h}=r;
+  const swH=50;
+  drawDotLine(ctx,20,swH,340,swH,C.muted);
+  drawLabel(ctx,345,swH+4,'lastH',C.muted,'left',8);
+  [{x:50,o:100,h:85,l:112,c:95,b:true},{x:80,o:95,h:80,l:108,c:88,b:true},
+   {x:110,o:88,h:72,l:100,c:80,b:true},{x:140,o:80,h:65,l:95,c:75,b:true},
+   {x:170,o:76,h:60,l:90,c:78,b:false},
+   {x:200,o:78,h:70,l:92,c:82,b:false},{x:230,o:82,h:74,l:95,c:88,b:false}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.b,14));
+  ctx.save();ctx.strokeStyle=C.gold;ctx.lineWidth=2;ctx.setLineDash([2,2]);ctx.strokeRect(162,58,20,52);ctx.restore();
+  drawLabel(ctx,170,48,'wick > lastH',C.gold,'center',9);
+  drawLabel(ctx,170,38,'close < lastH âœ—',C.bear,'center',9);
+  ctx.save();ctx.strokeStyle=C.muted;ctx.lineWidth=1;ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(140,swH);ctx.lineTo(200,swH);ctx.stroke();ctx.restore();
+  drawLabel(ctx,205,45,'â†� SWEEP LINE',C.muted,'left',8);
+  drawLabel(ctx,175,148,'Sweep (no close) = No structure break â†’ caution',C.gold,'center',9);
+}());
+
+// PDH/PDL
+(function(){
+  const r=setupCanvas('pdhl');if(!r)return;const{ctx,w,h}=r;
+  const pdh=45,pdl=130,mid=(pdh+pdl)/2;
+  drawSolidLine(ctx,20,pdh,340,pdh,C.bull,1.5);
+  drawSolidLine(ctx,20,pdl,340,pdl,C.bear,1.5);
+  drawDotLine(ctx,20,mid,340,mid,C.muted);
+  drawLabel(ctx,345,pdh+4,'PDH',C.bull,'left',9);
+  drawLabel(ctx,345,pdl+4,'PDL',C.bear,'left',9);
+  drawLabel(ctx,345,mid+4,'EQ',C.muted,'left',8);
+  drawBox(ctx,20,pdh,100,pdl,'rgba(255,255,255,0.03)',null);
+  drawLabel(ctx,60,mid+4,'YESTERDAY',C.muted,'center',8);
+  [{x:130,o:90,h:78,l:102,c:85,b:true},{x:158,o:85,h:72,l:98,c:80,b:true},
+   {x:186,o:80,h:66,l:92,c:74,b:true},{x:214,o:74,h:60,l:88,c:68,b:true},
+   {x:245,o:68,h:52,l:135,c:58,b:true},
+   {x:278,o:58,h:44,l:72,c:50,b:true},{x:310,o:52,h:38,l:65,c:44,b:true}]
+    .forEach(c=>drawCandle(ctx,c.x,c.o,c.h,c.l,c.c,c.b,14));
+  drawArrow(ctx,245,52,245,25,C.bull);
+  drawLabel(ctx,245,15,'LONG at PDL',C.bull,'center',9);
+}());
+</script>
+
+</body></html>
